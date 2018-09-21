@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<title>
+  
+    CG-CTF Web 部分 write up
+  
+</title>
+
+<meta name="description" content="签到题打开源码就能看到 flag md5 collisionmd5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a">
+<meta name="keywords" content="CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CG-CTF Web 部分 write up">
+<meta property="og:url" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/index.html">
+<meta property="og:site_name" content="未来机械研究所">
+<meta property="og:description" content="签到题打开源码就能看到 flag md5 collisionmd5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/层层递进.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/单身一百年也没用.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过2.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过3.png">
+<meta property="og:updated_time" content="2018-09-21T09:08:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CG-CTF Web 部分 write up">
+<meta name="twitter:description" content="签到题打开源码就能看到 flag md5 collisionmd5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a">
+<meta name="twitter:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/层层递进.png">
+
+
+  <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
+
+
+
+  <link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="/perfect-scrollbar/css/perfect-scrollbar.min.css">
+<link rel="stylesheet" href="/styles/main.css">
+
+
+
+
+
+
+</head>
+<body
+  
+    class="monochrome"
+  
+  >
+  <div class="mobile-header">
+  <button class="sidebar-toggle" type="button">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="title" href="/">未来机械研究所</a>
+</div>
+
+  <div class="main-container">
+    <div class="sidebar">
+  <div class="header">
+    <h1 class="title"><a href="/">未来机械研究所</a></h1>
+    
+    <div class="info">
+      <div class="content">
+        
+          <div class="description">间歇性努力的肥宅</div>
+        
+        
+          <div class="author">sykhhh123</div>
+        
+      </div>
+      
+        <div class="avatar">
+          
+            <img src="/images/avatar.jpg">
+          
+        </div>
+      
+    </div>
+  </div>
+  <div class="body">
+    
+      
+        <ul class="nav">
+          
+            
+              <li class="category-list-container">
+                <a href="javascript:;">分类</a>
+                
+              </li>
+            
+          
+            
+              <li class="tag-list-container">
+                <a href="javascript:;">标签</a>
+                <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a><span class="tag-list-count">1</span></li></ul>
+              </li>
+            
+          
+            
+              <li class="archive-list-container">
+                <a href="javascript:;">归档</a>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="/" title="Homepage">Homepage</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="/archives" title="By Year">By Year</a>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="https://github.com/denjones/hexo-theme-chan" title="Chan" target="_blank" rel="noopener">Chan</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://github.com/sykhhh123/" title="Github" target="_blank" rel="noopener">Github</a>
+              </li>
+            
+          
+        </ul>
+      
+    
+  </div>
+</div>
+
+    <div class="main-content">
+      
+        <div style="max-width: 1000px">
+      
+          <article id="post-CG-CTF-Web-部分-write-up" class="article article-type-post">
+  
+    <h1 class="article-header">
+      CG-CTF Web 部分 write up
+    </h1>
+  
+  
+
+  <div class="article-info">
+    <span class="article-date">
+  2018-07-04
+</span>
+
+    
+
+    
+	<span class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+	</span>
+
+
+  </div>
+  <div class="article-entry">
+    <h1 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h1><p>打开源码就能看到 flag</p>
+<h1 id="md5-collision"><a href="#md5-collision" class="headerlink" title="md5 collision"></a>md5 collision</h1><p>md5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a</p>
+<a id="more"></a> 
+<h1 id="签到2"><a href="#签到2" class="headerlink" title="签到2"></a>签到2</h1><p>打开源码， 要输入 zhimakaimen ，但是输入框限制 maxnlength = 10 改为 11 即可</p>
+<h1 id="这题不是WEB"><a href="#这题不是WEB" class="headerlink" title="这题不是WEB"></a>这题不是WEB</h1><p>上来直接塞了张图片， 用 winhex 打开拉到最后就看到 flag 了</p>
+<h1 id="层层递进"><a href="#层层递进" class="headerlink" title="层层递进"></a>层层递进</h1><p>打开链接， F12 看网络项， 里面有一个奇怪的 404.html， 打开那个html， 查看源代码。</p>
+<p><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/层层递进.png" alt="test"> <br></p>
+<p>将 jquery- 后面的字符连起来就是 flag</p>
+<h1 id="AAencode"><a href="#AAencode" class="headerlink" title="AAencode"></a>AAencode</h1><p>AAencode 是一种把代码变成颜文字的加密， 结合题目意思此处应该是一段 javascipt 代码， 直接粘贴到浏览器控制台中运行即可得到结果</p>
+<p>注： 如果未能正确显示颜文字需要修改浏览器编码</p>
+<h1 id="单身二十年"><a href="#单身二十年" class="headerlink" title="单身二十年"></a>单身二十年</h1><p>点进去有个链接， 跳了一下就说 key 没在这， 用 burp 抓包发现一共发了三个请求。</p>
+<p><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/单身一百年也没用.png" alt="test">  <br></p>
+<p>看一下 serach_key.php 的 Response 找到 flag</p>
+<h1 id="单身一百年也没用"><a href="#单身一百年也没用" class="headerlink" title="单身一百年也没用"></a>单身一百年也没用</h1><p>抓包发现跳到 web9/index.php 有个 302， 打开 Response 就看到 flag 了</p>
+<h1 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h1><p>发现 URL 中有经典文件包含漏洞， 利用 php://filter 输出页面， 打开 php://filter/read=conver.base64-encode/resource=show.php 发现里面没有什么内容， 再打开 index.php 发现 flag</p>
+<h1 id="php-decode"><a href="#php-decode" class="headerlink" title="php decode"></a>php decode</h1><p>直接丢到 php 里面跑报错， 说里面有个 ｛ ， 那 flag 估计在里面， 把 eval 换成 echo 得到 flag。</p>
+<h1 id="COOKIE"><a href="#COOKIE" class="headerlink" title="COOKIE"></a>COOKIE</h1><p>点进去发现啥都没有， burp 看一下 Cookie 发现是 0 ， 练习一下 tips ： 0 == not ， 把 0 改成 1 登录拿到 flag</p>
+<h1 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h1><p>进去先看 robots.txt ， 发现有 sql.php， 参数是 id， 但是 id 不能为 1024， 试了试其他的都没有内容显示， 估计 flag 在 1024 里面， 看前面代码把输入的 id 转换成整数再带入 sql 语句中， 但是检测的时候检测的是输入的 id 是否为 1024， 输入 id=1024.1 得到 flag</p>
+<h1 id="GBK-Injection"><a href="#GBK-Injection" class="headerlink" title="GBK Injection"></a>GBK Injection</h1><p>既然是 GBK 肯定是宽字符， 输入 1’ 发现被转义了， 输入 %df’ 成功屏蔽转义符， 然后就先查数据库表， 有 ctf1~4， ctf1 里面没东西， ctf2 里面东西拿出来发现 flag： nctf{query_in_mysql} 但其实这不是这道题的 flag， 然后接着看后面 ctf4 里面有个 flag 列， 打开拿到真的 flag：nctf{gbk_3sqli}</p>
+<h1 id="x00"><a href="#x00" class="headerlink" title="/x00"></a>/x00</h1><p>利用 ereg 在遇到 %00 时会默认为字符串结束， 构造字符串 1%00%23biubiubiu<br><br>此外 好像可以利用 === 和 ！== 的严格比较， 将 nctf 设置为数组， 这样在 ereg 比较时返回的并不是 false， 下面 strpos 的返回值也不是 false 由此获取 flag</p>
+<h1 id="bypass-again"><a href="#bypass-again" class="headerlink" title="bypass again"></a>bypass again</h1><p>还是利用 md5 0e 开头字符串在比较时会被转换成科学计数法法视为 0<br>也可以利用 md5 无法处理数组 构造两个数组（这才是考点？）</p>
+<h1 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h1><p>extract 能把数组中的符号表导入当前符号表， 这样只要把 thepassword_123 覆盖成和 pass 一样的值</p>
+<h1 id="上传绕过"><a href="#上传绕过" class="headerlink" title="上传绕过"></a>上传绕过</h1><p>这题比较麻烦。<br>普通的截断后缀好像并不好使。<br><br>先上传个 jpg 得到以下信息<br><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过.png" alt="test"> <br></p>
+<p>储存地址分为 dirname， basename， extenion 来检验<br><br>看一下发上去的包。<br><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过2.png" alt="test"> <br></p>
+<p>看样子 /upload/ 就是 dirname 部分， 在 /upload/ 后面添加 1.php 得到如下结果</p>
+<p><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过3.png" alt="test"> <br><br>可以发现 basename 变了， 那么尝试在 /upload/1.php 后添加 %00 进行截断 得到 flag</p>
+<h1 id="SQL注入1"><a href="#SQL注入1" class="headerlink" title="SQL注入1"></a>SQL注入1</h1><p>打开源码看一下， pass 被 md5 加密了但是 user 是直接使用的， 因此利用 user 注入， 注意闭合单引号和括号即可</p>
+<h1 id="pass-check"><a href="#pass-check" class="headerlink" title="pass check"></a>pass check</h1><p>感觉是个弱类型比较， 直接 post 一个数组就可以了。</p>
+<h1 id="起名字真难"><a href="#起名字真难" class="headerlink" title="起名字真难"></a>起名字真难</h1><p>要求给出字符串不能包含 1~9（不是 0~9） 而且字符串与 54975581388 相等， trick 的地方在于 54975581388 的十六进制 为 0xccccccccc 而 0 也是可以被接受的字符。 </p>
+<h1 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h1><p>以前并不知道的操作吧。  本来是 SELECT <em> FROM users WHERE name = ‘<strong>xxx</strong>‘ AND pass = ‘<strong>xxx</strong> ‘<br><br>因为单引号被过滤， 只能用已有的单引号来相互闭合， 在 name 中填写 <strong>\</strong> 得到<br><br> SELECT </em> FROM users WHERE name = ‘<strong>\’ AND pass = ‘</strong>xxx’<br><br> 此时将 xxx 替换成注入部分即可</p>
+<h1 id="综合题"><a href="#综合题" class="headerlink" title="综合题"></a>综合题</h1><p>名副其实综合题。<br><br> 先是一堆乱七八糟的符号， 丢到控制台跑一下得到一个 php 文件名， 打开后说 TIP 在脑袋里<br><br> 看一下 Header， 里面 tip 写了 history of bash， 查了一下发现可能是有个 .bash_history 文件<br><br> 再打开 发现是一条解压命令， 访问一下那个压缩包， 下载下来解压得到 flag</p>
+<h1 id="SQL注入2"><a href="#SQL注入2" class="headerlink" title="SQL注入2"></a>SQL注入2</h1><p>直接 union select md5（1） 然后 password = 1 就可以了</p>
+<h1 id="file-get-contents"><a href="#file-get-contents" class="headerlink" title="file_get_contents"></a>file_get_contents</h1><p>利用 php://input 直接把 meizijiu POST 上去就可以了</p>
+<h1 id="变量覆盖-1"><a href="#变量覆盖-1" class="headerlink" title="变量覆盖"></a>变量覆盖</h1><p>emmm 看个源码， 好像提交个 name=meizijiu233 就可以了。。。</p>
+<h1 id="Anonymous"><a href="#Anonymous" class="headerlink" title="Anonymous"></a>Anonymous</h1><p>考了个匿名函数的名称， 格式是 \x00lambda_%d ， %d 是当前进程中第 %d 创建的匿名函数， 所以思路就是通过向 Pre-fork 模式的 apache 服务器发送大量请求,致使 apache 开启新的进程来处理请求， 利用 burp intruder 模块。</p>
+
+  </div>
+  <footer class="article-footer">
+    
+  <div class="cc">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.z" target="_blank" title="署名-相同方式共享">
+      <img src="/images/cc/cc.png">
+      
+          <img src="/images/cc/by.png">
+        
+          <img src="/images/cc/sa.png">
+      
+      <span>
+        本作品采用知识共享 署名-相同方式共享 4.0 国际许可协议进行许可。
+      </span>
+    </a>
+  </div>
+
+
+    
+
+  </footer>
+</article>
+
+
+
+
+
+
+
+          <div class="main-footer">
+  
+    © 2018 未来机械研究所 - Powered by <a href="http://hexo.io" target="_blank">Hexo</a> - Theme <a href="https://github.com/denjones/hexo-theme-chan" target="_blank">Chan</a>
+  
+</div>
+
+      
+        </div>
+      
+    </div>
+  </div>
+  <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/PhotoSwipe/photoswipe.css">
+  <link rel="stylesheet" href="/PhotoSwipe/default-skin/default-skin.css">
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+             It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides.
+                PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                Don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+        <div class="pswp__top-bar">
+
+          <!--  Controls are self-explanatory. Order can be changed. -->
+
+          <div class="pswp__counter"></div>
+
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/PhotoSwipe/photoswipe.js"></script>
+  <script src="/PhotoSwipe/photoswipe-ui-default.js"></script>
+
+
+<script src="/perfect-scrollbar/js/min/perfect-scrollbar.min.js"></script>
+<script src="/scripts/main.js"></script>
+
+</body>
+</html>

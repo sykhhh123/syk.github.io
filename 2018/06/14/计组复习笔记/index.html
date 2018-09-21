@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<title>
+  
+    计组复(yu)习笔记
+  
+</title>
+
+<meta name="description" content="第二讲-计算机的基本结构0x01 冯·诺依曼结构的要点 五个组成部分：运算器(CA)，控制器(CC)，储存器(M)，输入设备（I），输出设备(O)  plus:外部储存设备(R) example:bios芯片   0x02 x86指令系统概览 Intel 8086（1978）  16位通用寄存器 对外16根数据线，20 根地址线，内存空间1MB 物理地址采用段+偏移的形式   Intel 8028">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组复(yu)习笔记">
+<meta property="og:url" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/index.html">
+<meta property="og:site_name" content="未来机械研究所">
+<meta property="og:description" content="第二讲-计算机的基本结构0x01 冯·诺依曼结构的要点 五个组成部分：运算器(CA)，控制器(CC)，储存器(M)，输入设备（I），输出设备(O)  plus:外部储存设备(R) example:bios芯片   0x02 x86指令系统概览 Intel 8086（1978）  16位通用寄存器 对外16根数据线，20 根地址线，内存空间1MB 物理地址采用段+偏移的形式   Intel 8028">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/三种工作模式之间的转换.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/8086寄存器模型.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/IA32储存器寻址.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/x86-86描述符.png">
+<meta property="og:image" content="http://latex.codecogs.com/png.latex?5.213&space;\times&space;10^{-6}&space;=&space;5.213E-6">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/段间直接转移.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/LOOPNZ.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/MIPS寄存器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/R型.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/I型.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/J型.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/串传送操作指令列表.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/NPMOS.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/非门.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/与非门.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/或非门.png">
+<meta property="og:image" content="https://latex.codecogs.com/png.latex?A&space;\oplus&space;B&space;=&space;(\overline&space;A&space;\cdot&space;B)+(A&space;\cdot&space;\overline&space;B)">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/半加器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/全加器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/减法器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/多选器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/RS触发器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/Dlatch.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/DFF.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/SRAM.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/控制信号.png">
+<meta property="og:image" content="https://latex.codecogs.com/png.latex?\dpi{100}&space;\small&space;\begin{align*}&space;MAR_{IN}&space;&=&space;T1\cdot(LOAD+ADD+STORE+JMP)&space;+&space;T3\cdot(LOAD+ADD+STORE)&space;\\&space;&=&space;T1&space;+&space;T3&space;\cdot&space;(LOAD&space;+&space;ADD&space;+&space;STORE)&space;\end{align*}">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/微程序控制信号.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/T1.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/微程序控制器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/微程序.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/延迟转移.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/历史信息转移预测器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/pentium两位.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/无倾向转移.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/BTB.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/BTB实例.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/PenBTB.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/IO接口.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/IO地址译码.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/并行输出.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/并行输入.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/串并转换.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/并行干扰.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/8255A.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/8255A端口.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/8255A初始化.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/方式选择控制字.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/端口C控制字.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/中断向量.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/中断向量表.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/软件查询流程图.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/菊花链.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/8253.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/分频器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/DRAM定时刷新.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/8253刷新.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/方波发生器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/产生系统时钟.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/控制扬声器发声.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/中断控制器和定时器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/总线译码器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/总线仲裁器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/总线逻辑电路.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/多条总线.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/DRAM结构.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/SRAM读.png">
+<meta property="og:updated_time" content="2018-09-21T09:08:06.028Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计组复(yu)习笔记">
+<meta name="twitter:description" content="第二讲-计算机的基本结构0x01 冯·诺依曼结构的要点 五个组成部分：运算器(CA)，控制器(CC)，储存器(M)，输入设备（I），输出设备(O)  plus:外部储存设备(R) example:bios芯片   0x02 x86指令系统概览 Intel 8086（1978）  16位通用寄存器 对外16根数据线，20 根地址线，内存空间1MB 物理地址采用段+偏移的形式   Intel 8028">
+<meta name="twitter:image" content="https://sykhhh123.github.io/2018/06/14/计组复习笔记/三种工作模式之间的转换.png">
+
+
+  <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
+
+
+
+  <link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="/perfect-scrollbar/css/perfect-scrollbar.min.css">
+<link rel="stylesheet" href="/styles/main.css">
+
+
+
+
+
+
+</head>
+<body
+  
+    class="monochrome"
+  
+  >
+  <div class="mobile-header">
+  <button class="sidebar-toggle" type="button">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="title" href="/">未来机械研究所</a>
+</div>
+
+  <div class="main-container">
+    <div class="sidebar">
+  <div class="header">
+    <h1 class="title"><a href="/">未来机械研究所</a></h1>
+    
+    <div class="info">
+      <div class="content">
+        
+          <div class="description">间歇性努力的肥宅</div>
+        
+        
+          <div class="author">sykhhh123</div>
+        
+      </div>
+      
+        <div class="avatar">
+          
+            <img src="/images/avatar.jpg">
+          
+        </div>
+      
+    </div>
+  </div>
+  <div class="body">
+    
+      
+        <ul class="nav">
+          
+            
+              <li class="category-list-container">
+                <a href="javascript:;">分类</a>
+                
+              </li>
+            
+          
+            
+              <li class="tag-list-container">
+                <a href="javascript:;">标签</a>
+                <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a><span class="tag-list-count">1</span></li></ul>
+              </li>
+            
+          
+            
+              <li class="archive-list-container">
+                <a href="javascript:;">归档</a>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="/" title="Homepage">Homepage</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="/archives" title="By Year">By Year</a>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="https://github.com/denjones/hexo-theme-chan" title="Chan" target="_blank" rel="noopener">Chan</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://github.com/sykhhh123/" title="Github" target="_blank" rel="noopener">Github</a>
+              </li>
+            
+          
+        </ul>
+      
+    
+  </div>
+</div>
+
+    <div class="main-content">
+      
+        <div style="max-width: 1000px">
+      
+          <article id="post-计组复习笔记" class="article article-type-post">
+  
+    <h1 class="article-header">
+      计组复(yu)习笔记
+    </h1>
+  
+  
+
+  <div class="article-info">
+    <span class="article-date">
+  2018-06-14
+</span>
+
+    
+
+    
+	<span class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
+	</span>
+
+
+  </div>
+  <div class="article-entry">
+    <h1 id="第二讲-计算机的基本结构"><a href="#第二讲-计算机的基本结构" class="headerlink" title="第二讲-计算机的基本结构"></a>第二讲-计算机的基本结构</h1><h2 id="0x01-冯·诺依曼结构的要点"><a href="#0x01-冯·诺依曼结构的要点" class="headerlink" title="0x01 冯·诺依曼结构的要点"></a>0x01 冯·诺依曼结构的要点</h2><ul>
+<li><p>五个组成部分：运算器<strong>(CA)</strong>，控制器<strong>(CC)</strong>，储存器<strong>(M)</strong>，输入设备<strong>（I）</strong>，输出设备<strong>(O)</strong></p>
+</li>
+<li><p>plus:外部储存设备<strong>(R)</strong> example:bios芯片</p>
+</li>
+</ul>
+<h2 id="0x02-x86指令系统概览"><a href="#0x02-x86指令系统概览" class="headerlink" title="0x02 x86指令系统概览"></a>0x02 x86指令系统概览</h2><ul>
+<li><p>Intel 8086（1978）</p>
+<ul>
+<li>16位通用寄存器</li>
+<li>对外16根数据线，20 根地址线，内存空间1MB</li>
+<li>物理地址采用<strong>段+偏移</strong>的形式</li>
+</ul>
+</li>
+<li><p>Intel 80286（1982）</p>
+<ul>
+<li>地址总线 24 位，内存 16 MB</li>
+<li>引入<strong>保护模式</strong></li>
+<li>兼容8060，有<strong>实模式</strong></li>
+</ul>
+</li>
+<li><p>实模式（实地址模式）</p>
+<ul>
+<li>运行在实模式下的 80x86 微处理器像是一个更快的 8086</li>
+<li>所有x86处理器在加电或复位后<strong>首先进入实模式</strong></li>
+<li>系统初始化程序在实模式下运行，为进入保护模式做好准备</li>
+</ul>
+</li>
+<li>Intel 80386（第一款32位处理器）</li>
+<li>三种模式的转换<br><img src="/2018/06/14/计组复习笔记/三种工作模式之间的转换.png" alt="test"></li>
+</ul>
+<p><br></p>
+<a id="more"></a> 
+<h2 id="0x03-x86-的地址空间"><a href="#0x03-x86-的地址空间" class="headerlink" title="0x03 x86 的地址空间"></a>0x03 x86 的地址空间</h2><ul>
+<li>IA32 和 8086 的寄存器模型<br><img src="/2018/06/14/计组复习笔记/8086寄存器模型.png" alt="test"></li>
+<li>段寄存器<ul>
+<li>CS： 代码段寄存器</li>
+<li>DS： 数据段寄存器</li>
+<li>ES： 附加段寄存器</li>
+<li>SS： 堆栈段寄存器</li>
+<li>FS, GS： 80386新增的附加段寄存器</li>
+</ul>
+</li>
+<li><p>8086 地址生成</p>
+<ul>
+<li><strong>物理地址 = 段基址 + 16 * 偏移量</strong></li>
+<li>实例： 默认数据保存在数据段 汇编指令 MOV AX, [3000H], 设 DH = 2000H<br><br>则实际地址为 2000H * 16 + 3000H = 23000H</li>
+<li>CS：IP 指示下一条指令的位置</li>
+<li>DS 实模式长度 64KB， 保护模式 4GB</li>
+<li>段跨越前缀，数据在数据段以外的地方<ul>
+<li>MOV AX, ES:[3000H]</li>
+<li>ES: MOV AX, [3000H]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a name="IA32">IA32 的储存器寻址 </a></p>
+<ul>
+<li><strong>保护模式下段基址不在CS中而在内存中</strong><br><img src="/2018/06/14/计组复习笔记/IA32储存器寻址.png" alt="test"></li>
+</ul>
+</li>
+<li><p>对比 x86-86 的描述符<br><img src="/2018/06/14/计组复习笔记/x86-86描述符.png" alt="test"></p>
+</li>
+</ul>
+<h2 id="0x04-x86-汇编语言的格式（Intel）"><a href="#0x04-x86-汇编语言的格式（Intel）" class="headerlink" title="0x04 x86 汇编语言的格式（Intel）"></a>0x04 x86 汇编语言的格式（Intel）</h2><ul>
+<li><p>前缀</p>
+<ul>
+<li>寄存器和立即数没有前缀</li>
+<li>mov eax， 8</li>
+</ul>
+</li>
+<li><p>数的表示</p>
+<ul>
+<li>整数默认十进制，非十进制用后缀表示<ul>
+<li>二进制： B    </li>
+<li>十进制： D    </li>
+<li>十六进制：H</li>
+<li>八进制： O 或 Q</li>
+</ul>
+</li>
+<li><strong>字母开头的十六进制数前面必须加0</strong></li>
+<li>字符串常数用<strong>单引号</strong>括起</li>
+<li>实数： <a href="http://www.codecogs.com/eqnedit.php?latex=5.213&space;\times&space;10^{-6}&space;=&space;5.213E-6" target="_blank"><img src="http://latex.codecogs.com/png.latex?5.213&space;\times&space;10^{-6}&space;=&space;5.213E-6" title="5.213 \times 10^{-6} = 5.213E-6"></a></li>
+</ul>
+</li>
+<li>操作数方向： 第一个是目的， 第二个是源</li>
+<li>基寄存器用 [] ： mov eax， [ebx+5]</li>
+<li>间接寻址： segreg：[base+index*scale+disp] <br>    mov eax, [ebx+ecx*4-20h]</li>
+<li>内存单元操作数前带前缀，指出操作数大小<ul>
+<li>dword ptr；    &nbsp; &nbsp; word ptr； &nbsp; &nbsp; byte ptr</li>
+<li>mov eax, dword ptr [ebx]</li>
+</ul>
+</li>
+</ul>
+<h1 id="第三讲-CISC和x86指令"><a href="#第三讲-CISC和x86指令" class="headerlink" title="第三讲-CISC和x86指令"></a>第三讲-CISC和x86指令</h1><h2 id="0x01-x86-指令：-传送类"><a href="#0x01-x86-指令：-传送类" class="headerlink" title="0x01 x86 指令： 传送类"></a>0x01 x86 指令： 传送类</h2><ul>
+<li>规则<ul>
+<li>立即数不能直接传送到段寄存器</li>
+<li>内存不能直接互相传送</li>
+<li>CS 不能作目地寄存器</li>
+<li>段寄存器不能直接互相传送</li>
+</ul>
+</li>
+<li>XHCG <ul>
+<li>两个数位宽要相同</li>
+<li>只能用寄存器和内存（不能都为内存）</li>
+<li>不能使用段寄存器</li>
+</ul>
+</li>
+<li>XLAT<ul>
+<li>BX 中取得表起始位置的偏移量</li>
+<li>AL 中取得索引同时保存结果</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="0x02-x86-指令-运算类"><a href="#0x02-x86-指令-运算类" class="headerlink" title="0x02 x86 指令: 运算类"></a>0x02 x86 指令: 运算类</h2><ul>
+<li>ADD（加法） &nbsp; ADC（有进位加法）&nbsp; INC（加1）</li>
+<li>DAA（加法调整指令）将AL中的“和“压缩成 BCD 码再保存在AL中</li>
+</ul>
+<p><br></p>
+<h2 id="0x03-x86-指令：-传送类及其他"><a href="#0x03-x86-指令：-传送类及其他" class="headerlink" title="0x03 x86 指令： 传送类及其他"></a>0x03 x86 指令： 传送类及其他</h2><ul>
+<li>无条件转移 直接转移<ul>
+<li>短转移 JMP SHORT LABEL <br> 操作 IP &lt;- IP + 8位的位移量（-127~128 Byte）</li>
+<li>近转移 JMP NEAR PTR LABEL <br> 操作 IP &lt;- IP + 16位的位移量（前后32 KByte）</li>
+<li>远转移 JMP FAR PTR LABEL <br> 操作 IP &lt;- LABEL的偏移量 CS &lt;- LABEL 的段基址</li>
+<li><img src="/2018/06/14/计组复习笔记/段间直接转移.png" alt="test"></li>
+</ul>
+</li>
+<li>段间间接转移<ul>
+<li>JMP DWORD PTR OPR</li>
+<li>寻址 OPR 对应的双字储存单元， 低字储存到 IP， 高字储存到 CS</li>
+</ul>
+</li>
+<li>条件转移<ul>
+<li>LOOPNE/LOOPNZ 格式： LOOPNE LABEL<ul>
+<li>操作：</li>
+<li>CX &lt;- CX - 1</li>
+<li>若 CX 不为 0 且 ZF = 0 则跳转到 LABEL， 否则结束循环</li>
+<li><img src="/2018/06/14/计组复习笔记/LOOPNZ.png" alt="test"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h1 id="第四·五讲-RISC和MIPS指令"><a href="#第四·五讲-RISC和MIPS指令" class="headerlink" title="第四·五讲-RISC和MIPS指令"></a>第四·五讲-RISC和MIPS指令</h1><h2 id="0x01-MIPS-指令的主要特点"><a href="#0x01-MIPS-指令的主要特点" class="headerlink" title="0x01 MIPS 指令的主要特点"></a>0x01 MIPS 指令的主要特点</h2><ul>
+<li>示例： <ul>
+<li>lw $8, ($19) 从地址为19号寄存器的内存单元取出32位数据存入8号寄存器</li>
+<li>add $10, $9, $8</li>
+</ul>
+</li>
+<li><p>MIPS通用寄存器</p>
+<ul>
+<li><img src="/2018/06/14/计组复习笔记/MIPS寄存器.png" alt="test"><br><br></li>
+</ul>
+</li>
+<li><p>MIPS 指令的主要特点</p>
+<ul>
+<li>固化指令长度 32-bit （1 word）</li>
+<li>只有 load 和 store 可以访存</li>
+<li>寻址模式简单</li>
+<li>指令数量少， 功能简单</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x02-MIPS-指令分类说明-——-R-型"><a href="#0x02-MIPS-指令分类说明-——-R-型" class="headerlink" title="0x02 MIPS 指令分类说明  —— R 型"></a>0x02 MIPS 指令分类说明  —— R 型</h2><ul>
+<li>R 型指令的格式<ul>
+<li>包含6个域</li>
+<li><img src="/2018/06/14/计组复习笔记/R型.png" alt="test"><br><br></li>
+<li>rs： 指定第一个源操作数寄存器</li>
+<li>rt： 指定第二个源操作数寄存器</li>
+<li>rd： 指定目地操作数寄存器</li>
+<li>shamt： 指定位移指令的移位位数<br><br></li>
+</ul>
+</li>
+</ul>
+<h2 id="0x03-MIPS-指令分类说明-——-I-型"><a href="#0x03-MIPS-指令分类说明-——-I-型" class="headerlink" title="0x03 MIPS 指令分类说明  —— I 型"></a>0x03 MIPS 指令分类说明  —— I 型</h2><ul>
+<li>I 型指令的格式<ul>
+<li><img src="/2018/06/14/计组复习笔记/I型.png" alt="test"><br><br></li>
+<li>rs： 第一个源操作数寄存器编号</li>
+<li>rt： 指定目的操作数寄存器编号， <strong>某些指令还可指定第二个源操作数寄存器编号</strong></li>
+<li>immediate： 16 bit 立即数 </li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="0x04-MIPS-指令分类说明-——-分支"><a href="#0x04-MIPS-指令分类说明-——-分支" class="headerlink" title="0x04 MIPS 指令分类说明  —— 分支"></a>0x04 MIPS 指令分类说明  —— 分支</h2><ul>
+<li><p>条件分支指令 (I型）</p>
+<ul>
+<li>beq/bne rs, rt, imm </li>
+<li>目的地址计算方法 <ul>
+<li>成立： PC = (PC+4) + (imm * 4)</li>
+<li>不成立： PC = PC + 4<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>非条件分支指令（J型）</p>
+<ul>
+<li><img src="/2018/06/14/计组复习笔记/J型.png" alt="test"><br><br></li>
+<li>目的地址计算方法：<ul>
+<li>NEW PC = { (PC+4)[31…28], address, 00 }</li>
+</ul>
+</li>
+<li>目标地址范围： 距离当前 256MB (2^28 Byte）</li>
+<li>如何达到更远的位置： （1） 两次 J 指令 （2） 调用 jr 指令： jr rs</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x05-MIPS-汇编程序实例"><a href="#0x05-MIPS-汇编程序实例" class="headerlink" title="0x05 MIPS 汇编程序实例"></a>0x05 MIPS 汇编程序实例</h2><ul>
+<li>汇编器提供伪指令<ul>
+<li>格式： mov dst， src</li>
+<li>实际： addi dst， src， 0</li>
+</ul>
+</li>
+<li><p>示例：</p>
+<ul>
+<li><p>源码  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char *p, *q; </span><br><span class="line">p = &amp;x[0];  </span><br><span class="line">q = &amp;y[0];  </span><br><span class="line">while((*q++ = *p++) != &apos;\0&apos;) ;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>汇编</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">lw $t1,Base Address </span><br><span class="line">lw $s1,0($t1) # $s1 = p </span><br><span class="line">lw $s2,4($t1) # $s2 = q </span><br><span class="line">Loop: lb $t2,0($s1) # $t2 = *p </span><br><span class="line">sb $t2,0($s2) # *q = $t2 </span><br><span class="line">addi $s1,$s1,1 # p = p + 1 </span><br><span class="line">addi $s2,$s2,1 # q = q + 1 </span><br><span class="line">beq $t2,$zero,Exit # if *p==0, Exit </span><br><span class="line">j Loop # goto Loop </span><br><span class="line">Exit: # 复制N个字符需要N*6+3条指令</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="0x06-对比-x86-的串操作指令"><a href="#0x06-对比-x86-的串操作指令" class="headerlink" title="0x06 对比 x86 的串操作指令"></a>0x06 对比 x86 的串操作指令</h2><ul>
+<li>串操作指令列表：<ul>
+<li><img src="/2018/06/14/计组复习笔记/串传送操作指令列表.png" alt="test"><br><br></li>
+</ul>
+</li>
+<li>MOVSB/MOVSW : <br> 将地址DS:SI所指向的存储器 字节/字 单元传送到地 址ES:DI；<br>修改SI和DI的内容，指向串的下一元素</li>
+<li>REP:<ul>
+<li>格式 REP 串操作指令</li>
+<li>CX ！= 0 执行串操作指令</li>
+<li>适用： MOVS， STO（存串）<br><br></li>
+</ul>
+</li>
+<li>串操作指令的共同特性<ul>
+<li>隐含操作数： 源串地址为 DS:SI， 目的串地址为 ES:DI ， 串的长度在CX寄存器中</li>
+<li>处理完一个串元素后的操作： 修改 SI, DI； 若有重复前缀 CX &lt;- CX - 1 <br><br></li>
+</ul>
+</li>
+<li>标志寄存器：EFLAGS/FLAGS<ul>
+<li>用于指示微处理器的状态并控制它的操作，标志寄存器的内容在不断扩充</li>
+<li>第10位为方向标志 DF</li>
+</ul>
+</li>
+<li>串传送方向: DF = 0/1: <br>从源串的 低/高 地址开始传送， 传送过程中，SI和DI自动 增量/减量 修改<br><br>用途： 应对源串和目的串的存储区域部分重叠的问题 <br><br></li>
+<li>REPNE/REPNZ: 当 ZF=0 且 CX≠0 时，重复执行 <br> 适用：CMPS, SCAS</li>
+<li>SCASB/SCASW <ul>
+<li>操作：<ul>
+<li>比较 AL/AX 的内容和目的串当前 字节/字</li>
+<li>修改 DI</li>
+<li>修改标志位</li>
+</ul>
+</li>
+<li>说明： 使用重复前缀 REPE/REPZ 或 REPNE/REPNZ 寻找目的串中第一个与 AL/AX 的值 相同 或 不相同 的元素<br><br></li>
+</ul>
+</li>
+</ul>
+<h1 id="第六讲-数字电路设计-pdf"><a href="#第六讲-数字电路设计-pdf" class="headerlink" title="第六讲-数字电路设计.pdf"></a>第六讲-数字电路设计.pdf</h1><h2 id="0x01-晶体管和门电路"><a href="#0x01-晶体管和门电路" class="headerlink" title="0x01 晶体管和门电路"></a>0x01 晶体管和门电路</h2><ul>
+<li>NMOS 和 PMOS<ul>
+<li><img src="/2018/06/14/计组复习笔记/NPMOS.png" alt="test">    </li>
+<li>NMOS 1 导通， PMOS 0 导通</li>
+</ul>
+</li>
+<li>门电路的实现<ul>
+<li>非门：<br><img src="/2018/06/14/计组复习笔记/非门.png" alt="test"><br><br><br></li>
+<li>与非门：<br>    <img src="/2018/06/14/计组复习笔记/与非门.png" alt="test"><br><br><br></li>
+<li>或非门：<br><img src="/2018/06/14/计组复习笔记/或非门.png" alt="test"><br><br><br></li>
+<li>异或门: <a href="https://www.codecogs.com/eqnedit.php?latex=A&space;\oplus&space;B&space;=&space;(\overline&space;A&space;\cdot&space;B)&plus;(A&space;\cdot&space;\overline&space;B)" target="_blank"><img src="https://latex.codecogs.com/png.latex?A&space;\oplus&space;B&space;=&space;(\overline&space;A&space;\cdot&space;B)&plus;(A&space;\cdot&space;\overline&space;B)" title="A \oplus B = (\overline A \cdot B)+(A \cdot \overline B)"></a><br><br><br></li>
+</ul>
+</li>
+<li>半加器： 输入 A， B， 输出 S（和）， C（进位） <br> <img src="/2018/06/14/计组复习笔记/半加器.png" alt="test"><br><br><br></li>
+<li>全加器： 输入 A， B，Cin， 输出 S（和）， Cout（进位） <br> <img src="/2018/06/14/计组复习笔记/全加器.png" alt="test"><br><br><br></li>
+<li>减法器实现实例：<ul>
+<li><img src="/2018/06/14/计组复习笔记/减法器.png" alt="test"><br><br><br><br><br></li>
+</ul>
+</li>
+<li>多路选择器(MUX）<ul>
+<li><img src="/2018/06/14/计组复习笔记/多选器.png" alt="test"><br><br><br></li>
+</ul>
+</li>
+</ul>
+<h2 id="0x02-时钟和触发器"><a href="#0x02-时钟和触发器" class="headerlink" title="0x02 时钟和触发器"></a>0x02 时钟和触发器</h2><ul>
+<li>具有储存功能的电路 （RS 触发器）<ul>
+<li><img src="/2018/06/14/计组复习笔记/RS触发器.png" alt="test"><br><br><br><br><br></li>
+</ul>
+</li>
+<li>D 锁存器（D latch）<ul>
+<li>在 clock 高电平时锁存 D</li>
+<li><img src="/2018/06/14/计组复习笔记/Dlatch.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>D 触发器（D latch 实现）<ul>
+<li><img src="/2018/06/14/计组复习笔记/DFF.png" alt="test"> <br><br></li>
+<li>该结构在 clock C 下降沿时锁存 D 为下降沿触发</li>
+<li>具有储存能力的信息单元</li>
+<li>有多种实现方式</li>
+<li>有一个数据输入， 一个时钟输入， 一个数据输出</li>
+<li>在 clock 上升沿采样 D， 传送到输出 Q， 其余时间 Q 不变</li>
+</ul>
+</li>
+<li><a name="SRAM">SRAM 的基本存储单元</a> （1 bit）<ul>
+<li><img src="/2018/06/14/计组复习笔记/SRAM.png" alt="test"> <br><br></li>
+<li>写入 1 时将 WL 置为 1， BL 置为 1， BL 补置为 0。 写入完成后把 WL 置为 0</li>
+<li>读出时将 WL 置为 1， BL 会输出储存的值<br><br><br></li>
+</ul>
+</li>
+</ul>
+<h1 id="第七讲-控制器的基本原理"><a href="#第七讲-控制器的基本原理" class="headerlink" title="第七讲-控制器的基本原理"></a>第七讲-控制器的基本原理</h1><h2 id="0x01-控制器的基本原理"><a href="#0x01-控制器的基本原理" class="headerlink" title="0x01 控制器的基本原理"></a>0x01 控制器的基本原理</h2><p><strong>本节详细读 PPT 和 MOOC</strong><br><br><br><br><br></p>
+<h2 id="0x02-控制器的分类"><a href="#0x02-控制器的分类" class="headerlink" title="0x02 控制器的分类"></a>0x02 控制器的分类</h2><ul>
+<li>硬布线控制器（硬连线控制器，组合逻辑控制器）<ul>
+<li>主要部件： 环形脉冲发生器， 指令译码器（确定IR是哪一条指令）， 微命令编码器（产生相应的控制信号）</li>
+<li>微命令（控制信号）： 在取指令和执行指令时，都需要控制器能针对不同的指令在不同的机器周期内发出所需要的各种控制信号</li>
+<li><img src="/2018/06/14/计组复习笔记/控制信号.png" alt="test"> <br><br></li>
+<li>控制信号的逻辑表达式实例 ： <ul>
+<li><a href="https://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;\begin{align*}&space;MAR_{IN}&space;&=&space;T1\cdot(LOAD&plus;ADD&plus;STORE&plus;JMP)&space;&plus;&space;T3\cdot(LOAD&plus;ADD&plus;STORE)&space;\\&space;&=&space;T1&space;&plus;&space;T3&space;\cdot&space;(LOAD&space;&plus;&space;ADD&space;&plus;&space;STORE)&space;\end{align*}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\dpi{100}&space;\small&space;\begin{align*}&space;MAR_{IN}&space;&=&space;T1\cdot(LOAD&plus;ADD&plus;STORE&plus;JMP)&space;&plus;&space;T3\cdot(LOAD&plus;ADD&plus;STORE)&space;\\&space;&=&space;T1&space;&plus;&space;T3&space;\cdot&space;(LOAD&space;&plus;&space;ADD&space;&plus;&space;STORE)&space;\end{align*}" title="\small \begin{align*} MAR_{IN} &= T1\cdot(LOAD+ADD+STORE+JMP) + T3\cdot(LOAD+ADD+STORE) \\ &= T1 + T3 \cdot (LOAD + ADD + STORE) \end{align*}"></a><br><br></li>
+</ul>
+</li>
+<li>优点： 指令执行速度很快</li>
+<li>缺点： 控制逻辑的电路复杂， 设计和验证难度大； 扩充和修改也很困难。<br><br><br></li>
+</ul>
+</li>
+<li>微程序控制器<ul>
+<li>基本思想：<ol>
+<li>计算机每一条机器指令所代表的操作可以被分解为一系列更基本的“微操作” ◦ 计算机中控制实现这些微操作的命令信号，称为“微命令”</li>
+<li>微命令以代码形式编成“微命令”， 制造CPU时， 将微命令存储在 CPU 内部的一个 ROM 里， CPU 执行程序时， 从 ROM 中取出微命令， 根据它所包含的微命令， 控制相关部件的操作。</li>
+<li>若干条微指令组成一段微程序， 解释执行一条机器指令</li>
+</ol>
+</li>
+<li>不同机器周期的控制信号：<ul>
+<li><img src="/2018/06/14/计组复习笔记/微程序控制信号.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>微指令示例：<ul>
+<li>T1周期：<ul>
+<li><img src="/2018/06/14/计组复习笔记/T1.png" alt="test"> <br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>微程序控制器的基本结构<ul>
+<li><img src="/2018/06/14/计组复习笔记/微程序控制器.png" alt="test"> <br><br></li>
+<li>控制储存器 CM： 每个储存单元存放一个微指令代码</li>
+<li>微指令寄存器 μIR： 用来存放从 CM 中读出的微指令， “微操作控制字段” 和 “顺序控制字段” 两个部分。 <br> 微指令的编码形式： 直接表示， 编码表示， 混合表示</li>
+<li>微地址形成电路：形成下一条微指令的地址<ul>
+<li>形成依据：微地址给定部分， 现行微地址中的顺序控制方式（如是否发生转移）， 机器指令的相关代码， 机器运行状态等</li>
+</ul>
+</li>
+<li>微地址寄存器 μAR ： 保存微指令对应的微地址， 指向相应 CM 单元， 当读出一条微指令后， 微地址形成电路将后继地址存入 μAR中， 从而指向一下个 CM 单元</li>
+</ul>
+</li>
+<li>机器指令的读取和执行<ul>
+<li>开始执行微指令时， 先从控制储存器中读取<strong>取机器指令用的微指令</strong>，它所包含的微指令使 CPU 访问主储存器， 读取机器指令， 送入指令寄存器 IR， 然后修改 PC 的内容<br> 在微程序中有一条或几条微指令，其微命令是实现“取指” 的操作，称为“取机器指令用的微指令”，属于微程序的公用部分</li>
+<li>根据机器指令中的<strong>操作码</strong>， 通过<strong>微地址形成电路</strong>， 找到与该机器指令所对应的微程序入口地址</li>
+<li>逐条取出对应微指令， <strong>每一条微指令提供一个微命令序列</strong>。</li>
+<li>执行完一条微指令后， 根据微地址形成方法产生后继地址， 读取下一条微指令</li>
+<li>执行完对应于一条机器指令的一段微程序后，返回到 “取机器指令用的微指令”，开始读取与执行又一条机器指令</li>
+</ul>
+</li>
+<li>一个简单的微程序示例：<ul>
+<li><img src="/2018/06/14/计组复习笔记/微程序.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>微程序控制器的主要特点： 利用软件方法设计硬件<ul>
+<li>缺点： 速度较慢</li>
+<li>优点：<ul>
+<li>规整性： 用程序的方法组织产生微命令信号（将程序技术引入 CPU）， 用存储逻辑控制代替组合逻辑控制（将存储逻引入CPU）</li>
+<li>灵活性： 可以较方便地增加和修改指令，只要增加或修改一部分微程序即可</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第八讲-流水线优化技术"><a href="#第八讲-流水线优化技术" class="headerlink" title="第八讲-流水线优化技术"></a>第八讲-流水线优化技术</h1><h2 id="0x01-转移预测技术"><a href="#0x01-转移预测技术" class="headerlink" title="0x01 转移预测技术"></a>0x01 转移预测技术</h2><ul>
+<li>转移指令： 改变指令流向， 破坏流水模式</li>
+<li>转移开销： 当转移指令被执行，并确实发生转移时，产生如下的开销，称为转移开销<ul>
+<li>将按顺序预取的指令废除（即“排空流水线”）</li>
+<li>从转移目标地址重新取指令</li>
+</ul>
+</li>
+<li>转移开小的构成：<ul>
+<li>“要不要转移？”：转移条件判定引起的开销</li>
+<li>“转移到哪里？”：生成目标地址引起的开销</li>
+</ul>
+</li>
+<li>延迟转移技术： 在编译过程中，通过编译器调度，在转移指令之后插入一条或几条适当的指令，当被调度的指令执行完成后，转移指令的目标地址和判断条件都已计算完成<ul>
+<li>示例：</li>
+<li><img src="/2018/06/14/计组复习笔记/延迟转移.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>转移预测技术<ul>
+<li>预测是否转移，转移到哪里</li>
+<li>实现要求： 能验证预测结果， 预测失败时可以恢复</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x02-转移条件预测方法"><a href="#0x02-转移条件预测方法" class="headerlink" title="0x02 转移条件预测方法"></a>0x02 转移条件预测方法</h2><ul>
+<li>硬件固定预测不转移<ul>
+<li>优点： 实现简单</li>
+<li>缺点： 效果不佳</li>
+</ul>
+</li>
+<li>编译制导的预测： 在转移指令的编码中增加一位， 编译器设置该位来通知硬件是预测转移还是不转移<ul>
+<li>优点： 软件可根据指令类型和历史信息， 对不同的指令进行不同的预测</li>
+<li>缺点： 需要软件支持； 需要修改 ISA； 不适应多变的执行环节</li>
+</ul>
+</li>
+<li>基于偏移的预测：如果转移指令地址和转移目标地址的相对偏移为负值（有可能是循环结束处的转移指令），则预测转移；否则，预测不转移</li>
+<li><strong>基于历史信息的预测（当前普遍采用）</strong>：转移与否取决于先前的转移指令的执行情况。<ul>
+<li>设计考虑： 跟踪多少律师信息； 对各种历史信息进行何种预测<br><br><br></li>
+</ul>
+</li>
+<li><p>历史信息转移预测器的简化示例</p>
+<ul>
+<li>在取指部件中用一位历史信息进行预测<ul>
+<li>‘1’ 表示实际发生转移 &nbsp; ‘0’ 表示实际不发生转移</li>
+</ul>
+</li>
+<li><img src="/2018/06/14/计组复习笔记/历史信息转移预测器.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li><p><strong>Pentium的两位历史信息转移预测器</strong></p>
+<ul>
+<li><img src="/2018/06/14/计组复习笔记/pentium两位.png" alt="test"> <br><br></li>
+<li>历史位设定分析<ul>
+<li><strong>更倾向于转移发生， 三种历史位都预测发生</strong><ul>
+<li>11： 强发生</li>
+<li>10： 发生</li>
+<li>01： 弱发生</li>
+</ul>
+</li>
+<li><strong>历史位的设定，可以有不同于Pentium的多种方式。例如，下图所示的是一种相对无倾向性的设定</strong><ul>
+<li><img src="/2018/06/14/计组复习笔记/无倾向转移.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>对于循环程序， 两种情况下可能需要重新计算转移地址， 并造成流水线的停顿和等待：<ul>
+<li>首次进入循环， <strong>预测错误</strong>： 预测不发生， 实际发生</li>
+<li>退出循环， 预测错误： 预测发生， 实际不发生</li>
+</ul>
+</li>
+<li>示例：<ul>
+<li>假设有一段循环10次的代码被反复调用<br><br>若使用1位历史信息，每轮调用时 , &nbsp; <em>2</em> &nbsp;  次预测错误, &nbsp; <em>8</em> &nbsp;   次正确<br><br>若使用2位历史信息，每轮调用时 , &nbsp; <em>1</em> &nbsp;  次预测错误, &nbsp; <em>9</em> &nbsp;   次正确<br><br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x03-转移目标地址的预测"><a href="#0x03-转移目标地址的预测" class="headerlink" title="0x03 转移目标地址的预测"></a>0x03 转移目标地址的预测</h2><ul>
+<li>转移目标缓冲期（BTB）： 保存了之前若干次转移指令执行时的目标地址<ul>
+<li><br> <img src="/2018/06/14/计组复习笔记/BTB.png" alt="test"> <br><br></li>
+<li>基本操作<ul>
+<li>分配 BTB 表项： 一条转移第一次执行时， 在 BTB 中分配一个表项</li>
+<li>BTB 表项比较： 将需要预测的指令与 BTB 中 “转移指令地址” 比较， 若有匹配则命中， 说明之前执行过该指令且为一个转移指令</li>
+<li>产生转移目标地址： 若命中， <strong>且该指令转移条件判定的预测结果为“发生转移”</strong>， 则将该表项的“转移目标地址”域读出作为下一条指令地址</li>
+<li>更新 BTB： 转移指令最终执行得到的目标地址和条件判定结果要和预测结果进行比较，如果不一致，则需要根据最终执行结果更新BTB</li>
+</ul>
+</li>
+<li>运行实例<ul>
+<li><br> <img src="/2018/06/14/计组复习笔记/BTB实例.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>进行 BTB 表项比较的时机： <ul>
+<li>取值的同时（Xscale）<ul>
+<li>优点： 在流水线较早阶段获得转移目标地址</li>
+<li>缺点： 每条指令均需访问BTB，功耗开销较大</li>
+</ul>
+</li>
+<li>译码完成后（Pentium）<ul>
+<li>优点：转移指令才需访问BTB，功耗开销较小</li>
+<li>缺点：在流水线较晚阶段获得转移目标地址</li>
+</ul>
+</li>
+<li>预译码完成后，取指的同时（UltraSPARC III） 将上述两种的优点结合</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Pentium BTB 的工作机制<ul>
+<li>示意图<br> <img src="/2018/06/14/计组复习笔记/PenBTB.png" alt="test"> <br><br></li>
+<li>说明：<ul>
+<li>指令译码阶段检查指令： 检查从预取缓存器中取出的指令是否转移指令， 若是，则将此指令的地址送往BTB进行查找</li>
+<li>若 BTB 命中： 根据该表项的“历史位”状态，预测此指令是否发生转移</li>
+<li>若预测发生转移： 将该表项中的“转移目标地址”提交给指令预取器， 指令预取器从“转移目标地址”处取指令装入预取缓存器，即进行所谓“转移取”</li>
+<li>若预测不发生转移： 从该转移指令之后的地址开始取指令，即进行所谓“顺序取” <br><br></li>
+<li>若 BTB 未命中: 说明BTB中没有该指令的历史记录，此时固定预测为不发生转移，即固定进行“顺序取”</li>
+<li>关于 BTB 未命中的指令: 若此指令实际没有发生转移，则无其它操作, 若此指令实际发生转移，则按“预测错误”处理，在BTB中建立一个新表项，设定“历史位”为11<br><br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x04-返回地址栈（RAS）"><a href="#0x04-返回地址栈（RAS）" class="headerlink" title="0x04 返回地址栈（RAS）"></a>0x04 返回地址栈（RAS）</h2><ul>
+<li>特殊的转移指令： RET</li>
+<li>专用的预测部件： 返回地址栈 RAS</li>
+<li>过程返回指令的特点：<ul>
+<li>优点：<ul>
+<li>无需判断转移条件， 必定发生</li>
+<li>执行“过程返回”指令时，转移目标地址已经生成</li>
+<li>“过程返回”指令的出现是可预期的</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>每次执行同一条“过程返回”指令时，转移目标地址往往不同</li>
+<li>转移目标地址在存储器中，访问时间较长</li>
+<li>在流水线晚期才访问存储器获得转移目标地址</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第九讲-输入输出接口"><a href="#第九讲-输入输出接口" class="headerlink" title="第九讲-输入输出接口"></a>第九讲-输入输出接口</h1><h2 id="0x01-输入输出接口电路"><a href="#0x01-输入输出接口电路" class="headerlink" title="0x01 输入输出接口电路"></a>0x01 输入输出接口电路</h2><ul>
+<li>I/O 接口：现代微型计算机中设置了 I/O 接口电路，作为CPU和外设之间传送数据的转接站<br>产生原因：<ol>
+<li>CPU 和外设之间的速度差距</li>
+<li>外设处理的信息格式和接口信号形式多样</li>
+</ol>
+</li>
+<li>I/O 接口的基本功能：<ol>
+<li>提供数据缓冲： 解决 CPU 和外设之间的速度差异</li>
+<li>提供联络信息： 协调和同步数据交换过程</li>
+<li>信号与信息格式的转换： 模/数、数/模转换，串/并、并/串转换，电平转换</li>
+<li>设备选择</li>
+<li>中断管理</li>
+<li>可编程功能</li>
+</ol>
+</li>
+<li>I/O 接口的基本结构：<ul>
+<li><img src="/2018/06/14/计组复习笔记/IO接口.png" alt="test"> <br><br></li>
+</ul>
+</li>
+</ul>
+<h2 id="0x02-输入输出的过程"><a href="#0x02-输入输出的过程" class="headerlink" title="0x02 输入输出的过程"></a>0x02 输入输出的过程</h2><ul>
+<li>I/O 端口及其编码方式：<ul>
+<li>I/O 端口：  I/O 接口内部包含一组称为 I/O 端口的<strong>寄存器</strong>， 每个 I/O 端口都需有自己的端口地址（或称端口号）。</li>
+<li>I/O 端口的编址方式：<ul>
+<li>I/O 端口和存储器<strong>统一</strong>编址：  存储器映像的 I/O 方式，Memory Mapped I/O （ARM, MIPS）<ul>
+<li>优点：<ul>
+<li>可以用访向存储器的指令来访问I/O端口，访问存储器的指令功能比较齐 全，可以实现直接对I/O端口内的数据进行处理</li>
+<li>可以将CPU中的I/O操作与访问存储器操作统一设计为一套控制逻辑，简 化内部结构，同时减少CPU的引脚数目</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>由于I/O端口占用了一部分存储器地址空间，因而使用户的存储地址空间 相对减小</li>
+<li>由于利用访问存储器的指令来进行I/O操作，指令的长度通常比单独I/O 指令要长，因而指令的执行时间也较长</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>I/O 端口和存储器<strong>分开</strong>编址：  I/O 映像的 I/O 方式，I/O Mapped I/O （x86<ul>
+<li>优点：<ul>
+<li>I/O端口不占用存储器地址，不会减少用户的存储器地址空间 </li>
+<li>I/O指令编码短，执行速度快</li>
+<li>I/O指令的地址码较短，地址译码方便</li>
+<li>采用单独的I/O指令，使程序中I/O操作和其他操作层次清晰，便于理解</li>
+</ul>
+</li>
+<li>缺点： 与上述对应</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>I/O 指令说明：<ul>
+<li>IN 指令：<ul>
+<li>格式： IN AC, PORT</li>
+<li>操作： 把外设端口的内容输入到 AL 或 AX</li>
+</ul>
+</li>
+<li>OUT 指令<ul>
+<li>格式： OUT PORT, AC</li>
+<li>操作： 把 AL 或 AX 的内容输出到外设端口</li>
+</ul>
+</li>
+<li>IN/OUT 寻址方式<ul>
+<li>端口号为 0-255：<ul>
+<li>直接寻址： 用一个字节立即数指定端口地址 <br> eg: IN AL, 80H &nbsp; OUT 80H, AX</li>
+<li>间接寻址： 用 DX 的内容指定端口地址</li>
+</ul>
+</li>
+<li>端口号大于255： 只能用间接寻址</li>
+</ul>
+</li>
+<li>I/O 地址译码示例 <br> <img src="/2018/06/14/计组复习笔记/IO地址译码.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>I/O 接口与示例与并行设备连接：<ul>
+<li>简单设备： 直接并行输入输出</li>
+<li>复杂设备： 要进行握手信号确认</li>
+</ul>
+</li>
+</ul>
+<p><a name="数据输出"></a></p>
+<ul>
+<li>数据输出过程<br> <img src="/2018/06/14/计组复习笔记/并行输出.png" alt="test"> <br><br><ol>
+<li>CPU 执行 OUT 指令，将控制字写入接口的<strong>控制寄存器</strong>，从而设置接口的工作模式 </li>
+<li>CPU 执行 OUT 指令，将数据写到接口的<strong>输出缓冲寄存器</strong></li>
+<li>接口将数据发到<strong>并行数据输出</strong>信号，并将<strong>输出准备好</strong>信号置为有效</li>
+<li>外设发现<strong>输出准备好</strong>信号有效后，从<strong>并行数据输出</strong> 信号接收数据， 并将<strong>输出回答</strong>信号置为有效</li>
+<li>接口发现<strong>输出回答</strong>信号有效后，将<strong>状态寄存器</strong> 中的状态位<strong>输出缓冲器空</strong>置为有效</li>
+<li>在这个过程中，CPU 反复执行 IN 指令从<strong>状态寄存器</strong>中读出状态字，直到发现<strong>输出缓冲器空</strong>，然后开始下一个输出过程，继续输出新数据</li>
+</ol>
+</li>
+<li>数据输入过程 <br> <img src="/2018/06/14/计组复习笔记/并行输入.png" alt="test"> <br><br><ol>
+<li>系统初始化时，CPU 执行 OUT 指令，将控制字写入接口的<strong>控制寄存器</strong>，设置接口的工作模式</li>
+<li>外设将数据发到<strong>并行数据输入</strong>信号，并将<strong>输入准备好</strong>信号置为有效</li>
+<li>接口发现<strong>输入准备好</strong>信号有效后， 从<strong>并行数据输入</strong> 信号接收数据， 放入<strong>输入缓冲寄存器</strong>，并将<strong>输入回答</strong>信号置为有效，阻止外设输入新数据</li>
+<li>接口将<strong>状态寄存器</strong>中的状态位<strong>输入缓冲器满</strong>置为有效</li>
+<li>在上述过程中，CPU 反复执行 IN 指令从<strong>状态寄存器</strong>中读出状态字，直到发现<strong>输入缓冲器满</strong> ，然后执行 IN 指令，从<strong>输入缓冲寄存器</strong>中读出数据</li>
+<li>接口将<strong>输入回答</strong>信号置为无效，等待外设输入新数据</li>
+</ol>
+</li>
+<li>注：此为程序控制方式，还可以采用中断控制方式<br><br><br></li>
+</ul>
+<h2 id="0x03-串行和并行的比较"><a href="#0x03-串行和并行的比较" class="headerlink" title="0x03 串行和并行的比较"></a>0x03 串行和并行的比较</h2><ul>
+<li>主要特点：<ul>
+<li>串行： 数据在单条<strong>一位宽</strong>的传输线上按时间先后一位一位地进行传送</li>
+<li>数据在多位宽的传输线上各位同时进行传送</li>
+</ul>
+</li>
+<li>串行并行比较<ul>
+<li>串行传输线少， 并行多</li>
+<li>同频率下串行效率低， 并行效率高</li>
+<li>串行需要经过复杂的串/并转换， 并行不需要</li>
+<li>串行避免了信号线之间的干扰， 并行存在干扰</li>
+</ul>
+</li>
+<li>串/并转换（移位寄存器）<br> <img src="/2018/06/14/计组复习笔记/串并转换.png" alt="test"> <br><br></li>
+<li>并行信号干扰 <br> <img src="/2018/06/14/计组复习笔记/并行干扰.png" alt="test"> <br><br></li>
+<li>串行通信兴起：差分信号传输技术<ul>
+<li>发送端在两根线上发送振幅相等、相位相反的信号（即差分信号）</li>
+<li>信号接收端比较两个电压的差值，判断发送端发送的是逻辑0还是逻辑1</li>
+<li>优点：<ul>
+<li>抗干扰能力强</li>
+<li>能有效抑制电磁干扰</li>
+<li>时序定位准确</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>在电路板上，差分信号一定要走两根等长、等宽、紧密靠近且在同一层 面的线，布线难度高<br><br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x04-并口芯片的应用实例-可编程并行接口电路-8255A"><a href="#0x04-并口芯片的应用实例-可编程并行接口电路-8255A" class="headerlink" title="0x04 并口芯片的应用实例 可编程并行接口电路 8255A"></a>0x04 并口芯片的应用实例 可编程并行接口电路 8255A</h2><ul>
+<li>外部接口 <br> <img src="/2018/06/14/计组复习笔记/8255A.png" alt="test"> <br><br></li>
+<li>与外设的连线：<ul>
+<li>端口A： PA7 ~ PA0； 端口B： PB7 ~ PB0<ul>
+<li>均为8位端口，但端口A功能更为丰富</li>
+<li>可分别设定为输入端口或输出端口</li>
+</ul>
+</li>
+<li>端口C： PC7 ~ PC0<ul>
+<li>分成两个4位的端口， 可分别设定为输入端口或输出端口</li>
+<li>通常不用于普通数据传输， 而是作为端口A和端口B的<strong>握手信号</strong><br><br>端口 A/B 与端口 C 的对应握手信号，合称为 A/B 组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>与系统的连线<ul>
+<li>地址： A1、 A0（又称端口选择信号）<ul>
+<li>8255A内部共有四个端口（即可编程寄存器）</li>
+<li>当 CS 有效时， 根据 A1， A0 选中其中一个信号</li>
+<li><img src="/2018/06/14/计组复习笔记/8255A端口.png" alt="test"> <br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>8255A 的初始化编程： 设置控制字<ul>
+<li><img src="/2018/06/14/计组复习笔记/8255A初始化.png" alt="test"> <br><br></li>
+<li>8255A 的控制字<ul>
+<li>8255A 的工作方式<ul>
+<li>方式0： 基本输入/输出。 没有规定专门的握手信号<ul>
+<li>提供四个并行口（两个8位，两个4位）， 均可用作输入或输出</li>
+<li>常用于简单外设之间的数据传送（向LED显示器的输出， 从二进制开关输入）</li>
+</ul>
+</li>
+<li>方式1： 单向输入/输出。 端口 C 专用于握手信号</li>
+<li>方式2： 双向传输。 端口 C 专用于握手信号</li>
+</ul>
+</li>
+<li>方式控制字 <br> <img src="/2018/06/14/计组复习笔记/方式选择控制字.png" alt="test"> <br><br><ul>
+<li>示例： 1 0 0 0 0 0 1 1 = 83H<ul>
+<li>端口A： 方式0输出</li>
+<li>端口B： 方式0输入</li>
+<li>端口C的高四位： 方式0输出</li>
+<li>端口C的低四位： 方式0输入</li>
+<li>code: </li>
+<li>MOV AL, 83H;<br> OUT 0D3H， AL； （设控制端口地址为 0D3H） </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>端口 C 按位置1/置0控制字 <br> <img src="/2018/06/14/计组复习笔记/端口C控制字.png" alt="test"> <br><br><ul>
+<li>示例： 0 0 0 0 1 1 0 0 = 0CH：将端口 C 的 P6 位置置0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第十讲-中断控制器和定时器"><a href="#第十讲-中断控制器和定时器" class="headerlink" title="第十讲-中断控制器和定时器"></a>第十讲-中断控制器和定时器</h1><h2 id="0x01-中断和异常"><a href="#0x01-中断和异常" class="headerlink" title="0x01 中断和异常"></a>0x01 中断和异常</h2><ul>
+<li>MISP CPU 的异常处理<ul>
+<li>在 EPC（异常程序计数器）中保存出现异常的地址（当前地址 -4）</li>
+<li>清空流水线之后的指令</li>
+<li>记录产生异常的原因</li>
+<li>把控制权交给操作系统的特定地址（转移到特定地址执行下一条指令）</li>
+</ul>
+</li>
+<li>中断向量： 中断服务程序的入口地址<ul>
+<li>每个中断类型对应一个中断向量（4 字节）</li>
+<li>前两个字节单元存放中断服务程序入口地址的偏移量 （IP），低字节在前，高字节在后</li>
+<li>后两个字节单元存放中断服务程序入口地址的段基值 （CS），低字节在前，高字节在后</li>
+<li><img src="/2018/06/14/计组复习笔记/中断向量.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>中断向量表： 位置不同，其他操作和实模式相同（对比<a href="#IA32"> IA32的存储器寻址</a>）<br><br> <img src="/2018/06/14/计组复习笔记/中断向量表.png" alt="test"> <br><br></li>
+</ul>
+<h2 id="0x02-中断控制器"><a href="#0x02-中断控制器" class="headerlink" title="0x02 中断控制器"></a>0x02 中断控制器</h2><ul>
+<li><p>外部中断的需求</p>
+<ul>
+<li>优先级： 多个中断请求同时出现， 如何确定响应次序</li>
+<li>屏蔽： 可否屏蔽指定 I/O 接口设备的中断请求</li>
+</ul>
+</li>
+<li><p>外部中断优先级的确定方法</p>
+<ul>
+<li>软件查询确定中断优先级<ul>
+<li>采用软件查询法解决中断优先级只需要少量硬件电路，将所有的外部中断请求信号相 “或”，产生一个总中断请求信号 INTR 发给 CPU</li>
+<li>带优先级的查询程序<ul>
+<li>在中断服务程序的开始部分，需安排一段查询程序</li>
+<li>查询的先后顺序体现不同设备的中断优先级， 先查的设备优先级较高</li>
+<li>一般来说，总是先查询速度较快或是实时性较高的设备</li>
+</ul>
+</li>
+<li><img src="/2018/06/14/计组复习笔记/软件查询流程图.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>硬件中断优先级编码电路<ul>
+<li>菊花链优先级排队电路 <br> <img src="/2018/06/14/计组复习笔记/菊花链.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>可编程中断控制器<ul>
+<li>现代PC机中多采用可编程中断控制器来处理中断 </li>
+<li>管理和控制 CPU 的外部中断请求 </li>
+<li>实现中断优先级的判决</li>
+<li>为CPU提供中断类型码 </li>
+<li>选择屏蔽设备的中断请求</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x03-定时器"><a href="#0x03-定时器" class="headerlink" title="0x03 定时器"></a>0x03 定时器</h2><ul>
+<li><p>计数/定时的基本概念</p>
+<ul>
+<li>计数： 主要是指对外部事件发生的次数进行计量</li>
+<li>定时： 主要是指产生一段准确的时延， 定时是对固定的时间单位进行计数。</li>
+</ul>
+</li>
+<li><p>可编程计数器/定时器： 早期典型 Intel 8253</p>
+<ul>
+<li>软硬件相结合的定时计数方法，采用专用的定时电路， 其定时值通过软件进行控制</li>
+<li>特点：功能灵活，使用方便</li>
+<li>8253 内部结构： <br> <img src="/2018/06/14/计组复习笔记/8253.png" alt="test"> <br><br></li>
+<li>定时器内部主要部件<ul>
+<li>计数器0、 计数器1、 计数器2<ul>
+<li>3个计数器/定时器通道</li>
+<li>3个通道的操作是完全独立的</li>
+</ul>
+</li>
+<li>CLK： 时钟输入信号， 作为计数脉冲，可以是非周期性脉冲， 也可以是频率精确的周期性脉冲</li>
+<li>GATE: 门控输入信号，对计数过程进行控制，具体作用视工 作方式而定</li>
+<li>OUT： 计数输出信号，计数到零/定时时间到输出，输出信号形式视工作方式而定</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>方式2： 分频器</p>
+<ul>
+<li><img src="/2018/06/14/计组复习笔记/分频器.png" alt="test"> <br><br></li>
+<li>输出波形： 每输入N个CLK脉冲，输出宽度为1个CLK周 期的负脉冲</li>
+<li>触发方式： 软件启动， 自动重复， 周期性输出固定频率的脉冲， 又称 Rate Generator</li>
+<li>主要用途： 脉冲速率发生器，类似“Divide-by-N”Counter Count(N) = Input(Hz) ÷ Frequency of Output</li>
+</ul>
+</li>
+<li><p><strong>DRAM 定时刷新</strong></p>
+<ul>
+<li><img src="/2018/06/14/计组复习笔记/DRAM定时刷新.png" alt="test"> <br><br></li>
+<li>用方式2产生 DRAM 定时刷新信号<ul>
+<li>IBM PC XT/AT 中， 8253 通道1的专用功能</li>
+<li>DRAM 刷新频率假设为 64KHz（每 2ms 刷新 128 次）</li>
+<li>计数通道1： 方式2， 计数初值18 <br> 1.19318MHz（输入时钟频率）/ 64KHz = 18</li>
+<li><img src="/2018/06/14/计组复习笔记/8253刷新.png" alt="test"> <br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>方式3： 方波发生器</p>
+<ul>
+<li><img src="/2018/06/14/计组复习笔记/方波发生器.png" alt="test"> <br><br></li>
+<li>输出波形： 对称方波或基本对称的矩形波</li>
+<li>触发方式： 软件启动，自动重复，周期性输出固定频率的的方波 </li>
+<li>主要用途： <ul>
+<li>产生系统时钟：<ul>
+<li>IBM PC XT/AT 中，8253通道0的专用功能</li>
+<li>为系统软件产生基本计时单位（定时中断）</li>
+<li>计数通道0： 方式3， 计数初值： 最大65536， 输出方波频率： 18.2Hz， 定时中断间隔：54.945ms<br><br> 1.19318MHz / 65536 = 18.2Hz</li>
+<li><img src="/2018/06/14/计组复习笔记/产生系统时钟.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>控制扬声器发声<ul>
+<li>IBM PC XT/AT 中，8253通道2的专用功能</li>
+<li>计数通道2： 方式3， 设置计数初值控制扬声器</li>
+<li><img src="/2018/06/14/计组复习笔记/控制扬声器发声.png" alt="test"> <br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x04-系统中的中断和定时"><a href="#0x04-系统中的中断和定时" class="headerlink" title="0x04 系统中的中断和定时"></a>0x04 系统中的中断和定时</h2><ul>
+<li>中断控制器和定时器在IBM PC/AT中的连接结构 <br> <img src="/2018/06/14/计组复习笔记/中断控制器和定时器.png" alt="test"> <br><br></li>
+</ul>
+<h1 id="第十一讲-总线与总线标准"><a href="#第十一讲-总线与总线标准" class="headerlink" title="第十一讲-总线与总线标准"></a>第十一讲-总线与总线标准</h1><h2 id="0x01-总线的分类"><a href="#0x01-总线的分类" class="headerlink" title="0x01 总线的分类"></a>0x01 总线的分类</h2><ul>
+<li>总线： 在多于两个模块（设备或子系统）间传送信息的公共通路</li>
+<li>总线的组成： <ul>
+<li>传输信息的电路</li>
+<li>管理信息传输的协议</li>
+</ul>
+</li>
+<li>总线的分类<ul>
+<li>片总线： 又称为器件级总线 -&gt; 片上总线： 中央处理器芯片内部的总线</li>
+<li>内总线： 又称为系统总线或板级总线<ul>
+<li>计算机系统中各插件板之间信息传输的通路 </li>
+<li>通常称为微型计算机总线的即指内总线</li>
+</ul>
+</li>
+<li>外总线： 又称通信总线， 计算机系统之间、或是计算机系统与其他系统（仪器、仪表、控制装置 等）之间信息传输的通路</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x02-总线的基本结构"><a href="#0x02-总线的基本结构" class="headerlink" title="0x02 总线的基本结构"></a>0x02 总线的基本结构</h2><ul>
+<li>总线主模块（Bus Master）<ul>
+<li>具有总线控制能力，在获得总线控制权之后能启动总线传输（读数据或写数据）<br> 示例： CPU、 DMA 控制器</li>
+</ul>
+</li>
+<li>总线从模块（Bus Slave）<ul>
+<li>能够对总线传输作出响应（接收写数据、返回读数据、返回“错误”响应等），但本身不具备总线控制能力  <br> 示例： 存储器</li>
+</ul>
+</li>
+<li>总线译码器（Bus Decoder）<ul>
+<li>功能： 根据当前控制总线的主模块提供的地址，选择作 为本次总线传输目标的从模块</li>
+<li><img src="/2018/06/14/计组复习笔记/总线译码器.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li>总线仲裁器（Bus Arbiter）<ul>
+<li>功能： 在总线上有多个主模块同时请求使用总线时，决定由哪个主模块获得总线控制权</li>
+<li>目的： 让总线得到合理、高效地使用</li>
+<li><img src="/2018/06/14/计组复习笔记/总线仲裁器.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li><strong>总线逻辑电路示意图</strong> <br> <img src="/2018/06/14/计组复习笔记/总线逻辑电路.png" alt="test"> <br><br></li>
+<li>一个包含多条总线的复杂系统示例：<br> <img src="/2018/06/14/计组复习笔记/多条总线.png" alt="test"> <br><br></li>
+</ul>
+<h2 id="0x03-常见的总线协议"><a href="#0x03-常见的总线协议" class="headerlink" title="0x03 常见的总线协议"></a>0x03 常见的总线协议</h2><ul>
+<li>总线标准的内容： <ul>
+<li>机械特性： 规定模块插件的机械尺寸，总线插头、插座的规格及位置等</li>
+<li>电气特性： 规定总线信号的逻辑电平、噪声容限及负载能力等</li>
+<li>功能特性： 给出各总线信号的名称及功能定义</li>
+<li>规程特性： 对各总线信号的动作过程及时序关系进行说明</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x04-总线协议实例"><a href="#0x04-总线协议实例" class="headerlink" title="0x04 总线协议实例"></a>0x04 总线协议实例</h2><p><strong>阅读PPT</strong></p>
+<h1 id="第十二讲-存储系统"><a href="#第十二讲-存储系统" class="headerlink" title="第十二讲-存储系统"></a>第十二讲-存储系统</h1><h2 id="0x01-存储层次结构"><a href="#0x01-存储层次结构" class="headerlink" title="0x01 存储层次结构"></a>0x01 存储层次结构</h2><ul>
+<li>存储器的特性： 非易失， 可读可写， 随机访问， 访问时间， 容量， 价格， 功耗</li>
+<li><a href="#SRAM">SRAM 的基本存储单元</a></li>
+<li>SRAM 的特点<ul>
+<li>优点： 速度快</li>
+<li>缺点： 集成度低， 功耗高， 价格高</li>
+</ul>
+</li>
+<li>DRAM 的特点<ul>
+<li>有点： 集成度高， 功耗低， 价格低</li>
+<li>缺点： 速度慢， <strong>定时刷新</strong></li>
+<li>DRAM 内部芯片结构 <br> <img src="/2018/06/14/计组复习笔记/DRAM结构.png" alt="test"> <br><br></li>
+</ul>
+</li>
+</ul>
+<h2 id="0x02-内存的工作过程"><a href="#0x02-内存的工作过程" class="headerlink" title="0x02 内存的工作过程"></a>0x02 内存的工作过程</h2><ul>
+<li>tRCD： 从行选到列选的延迟</li>
+<li>CL： 从列选到数据输出的延迟</li>
+<li>tRP： 行预充电</li>
+<li>SDRAM 读操作的典型访问过程 <br> <img src="/2018/06/14/计组复习笔记/SRAM读.png" alt="test"> <br><br></li>
+<li>页命中<ul>
+<li>所有的行都处于关闭状态， 此时可直接发送行有效命令， 数据读取前的总耗时为tRCD+CL </li>
+</ul>
+</li>
+<li>页快速命中（页直接命中）<ul>
+<li>要寻址的行正好是前一个操作的工作行（已处于选通有效状态）， 此时可直接发送列寻址命令，即背靠背（Back to Back）寻址，数据读取前的总耗时为CL </li>
+</ul>
+</li>
+<li>页错失<ul>
+<li>已经有另一个行处于活动状态（未关闭），被称作寻址冲突</li>
+<li>此时必须进行预充电来关闭工作行，再对新行发送行有效命令， 总耗时为tRP+tRCD+CL </li>
+</ul>
+</li>
+</ul>
+<h2 id="0x03-内存技术的最新进展"><a href="#0x03-内存技术的最新进展" class="headerlink" title="0x03 内存技术的最新进展"></a>0x03 内存技术的最新进展</h2><p><strong>阅读PPT</strong></p>
+
+  </div>
+  <footer class="article-footer">
+    
+  <div class="cc">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.z" target="_blank" title="署名-相同方式共享">
+      <img src="/images/cc/cc.png">
+      
+          <img src="/images/cc/by.png">
+        
+          <img src="/images/cc/sa.png">
+      
+      <span>
+        本作品采用知识共享 署名-相同方式共享 4.0 国际许可协议进行许可。
+      </span>
+    </a>
+  </div>
+
+
+    
+
+  </footer>
+</article>
+
+
+
+
+
+
+
+          <div class="main-footer">
+  
+    © 2018 未来机械研究所 - Powered by <a href="http://hexo.io" target="_blank">Hexo</a> - Theme <a href="https://github.com/denjones/hexo-theme-chan" target="_blank">Chan</a>
+  
+</div>
+
+      
+        </div>
+      
+    </div>
+  </div>
+  <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/PhotoSwipe/photoswipe.css">
+  <link rel="stylesheet" href="/PhotoSwipe/default-skin/default-skin.css">
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+             It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides.
+                PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                Don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+        <div class="pswp__top-bar">
+
+          <!--  Controls are self-explanatory. Order can be changed. -->
+
+          <div class="pswp__counter"></div>
+
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/PhotoSwipe/photoswipe.js"></script>
+  <script src="/PhotoSwipe/photoswipe-ui-default.js"></script>
+
+
+<script src="/perfect-scrollbar/js/min/perfect-scrollbar.min.js"></script>
+<script src="/scripts/main.js"></script>
+
+</body>
+</html>

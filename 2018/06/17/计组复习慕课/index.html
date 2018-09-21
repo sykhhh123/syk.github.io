@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<title>
+  
+    计组复(yu)习笔记（慕课）
+  
+</title>
+
+<meta name="description" content="运算器0x01 加法器和减法器 4-bit RCA的关键路径（延迟最长的路径）">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组复(yu)习笔记（慕课）">
+<meta property="og:url" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/index.html">
+<meta property="og:site_name" content="未来机械研究所">
+<meta property="og:description" content="运算器0x01 加法器和减法器 4-bit RCA的关键路径（延迟最长的路径）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/关键路径.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{i+1}&space;&=&space;(A_{i}&space;\cdot&space;B_{i})+(A_{i}&space;\cdot&space;C_{i})+(B_{i}\cdot&space;C_{i})&space;\\&space;&=&space;(A_{i}&space;\cdot&space;B_{i})+(A_{i}+B_{i})\cdot&space;C_{i}&space;\end{align*}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;G_{i}=A_{i}\cdot&space;B_{i}&space;\end{align*}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;P_{i}=A_{i}&space;+&space;B_{i}&space;\end{align*}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{i+1}=G_{i}&space;+&space;P_{i}\cdot&space;C_{i}&space;\end{align*}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{1}=G_{0}&space;+&space;P_{0}\cdot&space;C_{0}&space;\end{align*}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{2}&space;&=&space;G_{1}&space;+&space;P_{1}\cdot&space;C_{1}&space;\\&space;&=&space;G_{1}&space;+&space;P_{1}\cdot&space;(G_{0}&space;+&space;P_{0}\cdot&space;C_{0})&space;\\&space;&=&space;G_{1}&space;+&space;P_{1}\cdot&space;G_{0}&space;+&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0}&space;\end{align*}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{3}&space;&=&space;G_{2}&space;+&space;P_{2}\cdot&space;C_{2}&space;\\&space;&=&space;G_{2}&space;+&space;P_{2}\cdot&space;(G_{1}&space;+&space;P_{1}\cdot&space;G_{0}&space;+&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0})&space;\\&space;&=&space;G_{2}&space;+&space;P_{2}\cdot&space;G_{1}&space;+&space;P_{2}\cdot&space;P_{1}\cdot&space;G_{0}&space;+&space;P_{2}\cdot&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0}&space;\end{align*}">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/乘法器工作流程.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/乘法器工作流程2.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/乘法器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/除法器工作流程.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/除法器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/乘法除法器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/IFU.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/运算部件.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/运算访存.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/数据通路.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/逻辑表达式.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/流水线.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/结构冒险.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/结构冒险2.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/数据冒险1.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/数据冒险2.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/控制冒险1.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/并行输入.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/并行输出.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/DMAC.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/外部中断.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/早期中断控制器.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/现代中断控制器.png">
+<meta property="og:updated_time" content="2018-09-21T09:08:06.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计组复(yu)习笔记（慕课）">
+<meta name="twitter:description" content="运算器0x01 加法器和减法器 4-bit RCA的关键路径（延迟最长的路径）">
+<meta name="twitter:image" content="https://sykhhh123.github.io/2018/06/17/计组复习慕课/关键路径.png">
+
+
+  <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
+
+
+
+  <link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="/perfect-scrollbar/css/perfect-scrollbar.min.css">
+<link rel="stylesheet" href="/styles/main.css">
+
+
+
+
+
+
+</head>
+<body
+  
+    class="monochrome"
+  
+  >
+  <div class="mobile-header">
+  <button class="sidebar-toggle" type="button">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="title" href="/">未来机械研究所</a>
+</div>
+
+  <div class="main-container">
+    <div class="sidebar">
+  <div class="header">
+    <h1 class="title"><a href="/">未来机械研究所</a></h1>
+    
+    <div class="info">
+      <div class="content">
+        
+          <div class="description">间歇性努力的肥宅</div>
+        
+        
+          <div class="author">sykhhh123</div>
+        
+      </div>
+      
+        <div class="avatar">
+          
+            <img src="/images/avatar.jpg">
+          
+        </div>
+      
+    </div>
+  </div>
+  <div class="body">
+    
+      
+        <ul class="nav">
+          
+            
+              <li class="category-list-container">
+                <a href="javascript:;">分类</a>
+                
+              </li>
+            
+          
+            
+              <li class="tag-list-container">
+                <a href="javascript:;">标签</a>
+                <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a><span class="tag-list-count">1</span></li></ul>
+              </li>
+            
+          
+            
+              <li class="archive-list-container">
+                <a href="javascript:;">归档</a>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="/" title="Homepage">Homepage</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="/archives" title="By Year">By Year</a>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="https://github.com/denjones/hexo-theme-chan" title="Chan" target="_blank" rel="noopener">Chan</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://github.com/sykhhh123/" title="Github" target="_blank" rel="noopener">Github</a>
+              </li>
+            
+          
+        </ul>
+      
+    
+  </div>
+</div>
+
+    <div class="main-content">
+      
+        <div style="max-width: 1000px">
+      
+          <article id="post-计组复习慕课" class="article article-type-post">
+  
+    <h1 class="article-header">
+      计组复(yu)习笔记（慕课）
+    </h1>
+  
+  
+
+  <div class="article-info">
+    <span class="article-date">
+  2018-06-17
+</span>
+
+    
+
+    
+	<span class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
+	</span>
+
+
+  </div>
+  <div class="article-entry">
+    <h1 id="运算器"><a href="#运算器" class="headerlink" title="运算器"></a>运算器</h1><h2 id="0x01-加法器和减法器"><a href="#0x01-加法器和减法器" class="headerlink" title="0x01 加法器和减法器"></a>0x01 加法器和减法器</h2><ul>
+<li>4-bit RCA的关键路径（延迟最长的路径）<br> <img src="/2018/06/17/计组复习慕课/关键路径.png" alt="test"> <br><br></li>
+</ul>
+<a id="more"></a> 
+<ul>
+<li>进位输出信号的分析<br><br><a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;C_{i&plus;1}&space;&=&space;(A_{i}&space;\cdot&space;B_{i})&plus;(A_{i}&space;\cdot&space;C_{i})&plus;(B_{i}\cdot&space;C_{i})&space;\\&space;&=&space;(A_{i}&space;\cdot&space;B_{i})&plus;(A_{i}&plus;B{i})\cdot&space;C_{i}&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{i&plus;1}&space;&=&space;(A_{i}&space;\cdot&space;B_{i})&plus;(A_{i}&space;\cdot&space;C_{i})&plus;(B_{i}\cdot&space;C_{i})&space;\\&space;&=&space;(A_{i}&space;\cdot&space;B_{i})&plus;(A_{i}&plus;B_{i})\cdot&space;C_{i}&space;\end{align*}" title="\begin{align*} C_{i+1} &= (A_{i} \cdot B_{i})+(A_{i} \cdot C_{i})+(B_{i}\cdot C_{i}) \\ &= (A_{i} \cdot B_{i})+(A_{i}+B_{i})\cdot C_{i} \end{align*}"></a><ul>
+<li>生成信号： <a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;G_{i}=A_{i}\cdot&space;B_{i}&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;G_{i}=A_{i}\cdot&space;B_{i}&space;\end{align*}" title="\begin{align*} G_{i}=A_{i}\cdot B_{i} \end{align*}"></a></li>
+<li>传播信号： <a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;P_{i}=A_{i}&space;&plus;&space;B_{i}&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;P_{i}=A_{i}&space;&plus;&space;B_{i}&space;\end{align*}" title="\begin{align*} P_{i}=A_{i} + B_{i} \end{align*}"></a></li>
+<li>则有： <a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;C_{i&plus;1}=G_{i}&space;&plus;&space;P_{i}\cdot&space;C_{i}&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{i&plus;1}=G_{i}&space;&plus;&space;P_{i}\cdot&space;C_{i}&space;\end{align*}" title="\begin{align*} C_{i+1}=G_{i} + P_{i}\cdot C_{i} \end{align*}"></a></li>
+<li><a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;C_{1}=G_{0}&space;&plus;&space;P_{0}\cdot&space;C_{0}&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{1}=G_{0}&space;&plus;&space;P_{0}\cdot&space;C_{0}&space;\end{align*}" title="\begin{align*} C_{1}=G_{0} + P_{0}\cdot C_{0} \end{align*}"></a><br><a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;C_{2}&space;&=&space;G_{1}&space;&plus;&space;P_{1}\cdot&space;C_{1}&space;\\&space;&=&space;G_{1}&space;&plus;&space;P_{1}\cdot&space;(G_{0}&space;&plus;&space;P_{0}\cdot&space;C_{0})&space;\\&space;&=&space;G_{1}&space;&plus;&space;P_{1}\cdot&space;G_{0}&space;&plus;&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0}&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{2}&space;&=&space;G_{1}&space;&plus;&space;P_{1}\cdot&space;C_{1}&space;\\&space;&=&space;G_{1}&space;&plus;&space;P_{1}\cdot&space;(G_{0}&space;&plus;&space;P_{0}\cdot&space;C_{0})&space;\\&space;&=&space;G_{1}&space;&plus;&space;P_{1}\cdot&space;G_{0}&space;&plus;&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0}&space;\end{align*}" title="\begin{align*} C_{2} &= G_{1} + P_{1}\cdot C_{1} \\ &= G_{1} + P_{1}\cdot (G_{0} + P_{0}\cdot C_{0}) \\ &= G_{1} + P_{1}\cdot G_{0} + P_{1}\cdot P_{0}\cdot C_{0} \end{align*}"></a><br><a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;C_{3}&space;&=&space;G_{2}&space;&plus;&space;P_{2}\cdot&space;C_{2}&space;\\&space;&=&space;G_{2}&space;&plus;&space;P_{2}\cdot&space;(G_{1}&space;&plus;&space;P_{1}\cdot&space;G_{0}&space;&plus;&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0})&space;\\&space;&=&space;G_{2}&space;&plus;&space;P_{2}\cdot&space;G_{1}&space;&plus;&space;P_{2}\cdot&space;P_{1}\cdot&space;G_{0}&space;&plus;&space;P_{2}\cdot&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0}&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;C_{3}&space;&=&space;G_{2}&space;&plus;&space;P_{2}\cdot&space;C_{2}&space;\\&space;&=&space;G_{2}&space;&plus;&space;P_{2}\cdot&space;(G_{1}&space;&plus;&space;P_{1}\cdot&space;G_{0}&space;&plus;&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0})&space;\\&space;&=&space;G_{2}&space;&plus;&space;P_{2}\cdot&space;G_{1}&space;&plus;&space;P_{2}\cdot&space;P_{1}\cdot&space;G_{0}&space;&plus;&space;P_{2}\cdot&space;P_{1}\cdot&space;P_{0}\cdot&space;C_{0}&space;\end{align*}" title="\begin{align*} C_{3} &= G_{2} + P_{2}\cdot C_{2} \\ &= G_{2} + P_{2}\cdot (G_{1} + P_{1}\cdot G_{0} + P_{1}\cdot P_{0}\cdot C_{0}) \\ &= G_{2} + P_{2}\cdot G_{1} + P_{2}\cdot P_{1}\cdot G_{0} + P_{2}\cdot P_{1}\cdot P_{0}\cdot C_{0} \end{align*}"></a></li>
+<li>提前计算电路的优点： 计算 C<sub>i+1</sub> 的延迟时 间固定为三级门延迟，与 加法器的位数无关</li>
+<li>缺点： 如果进一步拓 宽加法器的位数，则 电路变得非常复杂</li>
+<li>32位加法器通常实现方法： 采用多个小规模的超前进位加法器拼接而成： 例如，用4个8-bit的超前进位加法器连接成32-bit加法器</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x02-乘法器和除法器"><a href="#0x02-乘法器和除法器" class="headerlink" title="0x02 乘法器和除法器"></a>0x02 乘法器和除法器</h2><h3 id="乘法器工作流程"><a href="#乘法器工作流程" class="headerlink" title="乘法器工作流程"></a>乘法器工作流程</h3><ul>
+<li>原版 <br> <img src="/2018/06/17/计组复习慕课/乘法器工作流程.png" alt="test"> <br><br></li>
+<li>优化 <br> <img src="/2018/06/17/计组复习慕课/乘法器工作流程2.png" alt="test"> <br><br></li>
+</ul>
+<h3 id="乘法器最终结构"><a href="#乘法器最终结构" class="headerlink" title="乘法器最终结构"></a>乘法器最终结构</h3><p><img src="/2018/06/17/计组复习慕课/乘法器.png" alt="test"> <br><br></p>
+<h3 id="除法器工作流程"><a href="#除法器工作流程" class="headerlink" title="除法器工作流程"></a>除法器工作流程</h3><p><img src="/2018/06/17/计组复习慕课/除法器工作流程.png" alt="test"> <br><br></p>
+<h3 id="除法器最终结构"><a href="#除法器最终结构" class="headerlink" title="除法器最终结构"></a>除法器最终结构</h3><p><img src="/2018/06/17/计组复习慕课/除法器.png" alt="test"> <br><br></p>
+<h3 id="乘法器除法器合并"><a href="#乘法器除法器合并" class="headerlink" title="乘法器除法器合并"></a>乘法器除法器合并</h3><p><img src="/2018/06/17/计组复习慕课/乘法除法器.png" alt="test"> <br><br></p>
+<h2 id="0x03-乘法和除法指令"><a href="#0x03-乘法和除法指令" class="headerlink" title="0x03 乘法和除法指令"></a>0x03 乘法和除法指令</h2><h3 id="MIPS-指令"><a href="#MIPS-指令" class="headerlink" title="MIPS 指令"></a>MIPS 指令</h3><ul>
+<li>MIPS 乘除法的专用寄存器：Hi，Lo <ul>
+<li>乘法： Hi/Lo联合用于保存64-bit乘积 </li>
+<li>除法： Lo保存商（32-bit）， Hi保存余数（32-bit）</li>
+<li>读取方法： mfhi/mflo $s1 （move from Hi/Lo）即为 $s1 = Hi/Lo</li>
+</ul>
+</li>
+<li>MIPS 指令： <ul>
+<li>乘法： mult， multu</li>
+<li>除法： div， divu</li>
+</ul>
+</li>
+</ul>
+<h3 id="x86-指令"><a href="#x86-指令" class="headerlink" title="x86 指令"></a>x86 指令</h3><ul>
+<li>x86 乘法指令：<ul>
+<li>MUL： （无符号）<ul>
+<li>格式： MUL SRC</li>
+<li>操作：<ul>
+<li>8位： AX &lt;- AL × SRC</li>
+<li>16位： DX:AX &lt;- AX × SRC</li>
+<li>32位： EDX:EAX &lt;- EAX × SRC</li>
+<li>64位： RDX:RAX &lt;- RAX × SRC</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IMUL： （有符号）</li>
+</ul>
+</li>
+<li>x86 除法指令：<ul>
+<li>DIV： （有符号）<ul>
+<li>格式： DIV SRC</li>
+<li>操作：<ul>
+<li>8位： AL &lt;- AL/SRC 的商； AH &lt;- 余数</li>
+<li>16位： AX &lt;- (DX:AX)/SRC 的商； DX &lt;- 余数</li>
+<li>32位及64位类似</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IDIV： （有符号） 余数符号和<font color="#dd0000"><strong>除数</strong></font>相同</li>
+</ul>
+</li>
+<li>符号扩展类指令<ul>
+<li>CBW 字节扩展为字<ul>
+<li>格式： CBW</li>
+<li>操作： 将 AL 的符号位扩展到 AH</li>
+</ul>
+</li>
+<li>CWD 字扩展为双字<ul>
+<li>格式： CWD</li>
+<li>操作： 将 AX 的符号位扩展到 DX</li>
+</ul>
+</li>
+<li>注：IA-32新增的相关指令 <br> CWDE 指令：将 AX 符号扩展到 EAX <br> CDQ 指令：将 EAX 符号扩展到 EDX:EAX</li>
+</ul>
+</li>
+</ul>
+<h1 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h1><ul>
+<li>取指令<ul>
+<li>程序计数器（PC）的内容是指令的地址， 用 PC 的内容作为地址， 访问指令存储器获得指令编码</li>
+</ul>
+</li>
+<li>更新 PC<ul>
+<li>顺序执行时： PC &lt;- PC + 4</li>
+<li>发生分支时： PC &lt;- 分支目标的地址</li>
+</ul>
+</li>
+<li><p>取指部件 IFU <br> <img src="/2018/06/17/计组复习慕课/IFU.png" alt="test"> <br><br></p>
+</li>
+<li><p>加法和减法指令</p>
+<ul>
+<li>R[rd] = R[rs] op R[rt]</li>
+<li>addu rd, rs, rt</li>
+</ul>
+</li>
+<li>逻辑运算指令<ul>
+<li>R[rt] = R[rs] op ZeroExt[imm16]</li>
+<li>ori rt, rs, imm16</li>
+</ul>
+</li>
+<li><p>运算部件 <br> <img src="/2018/06/17/计组复习慕课/运算部件.png" alt="test"> <br><br></p>
+</li>
+<li><p>访存指令（Load）</p>
+<ul>
+<li>R[rt] = Mem[R[rs]+SignExt[imm16]]</li>
+<li>lw rt, imm16(rs)</li>
+</ul>
+</li>
+<li>访存指令（Store）<ul>
+<li>Mem[R[rs]+SignExt[imm16]] = R[rt]</li>
+<li>sw rt, imm16(rs)</li>
+</ul>
+</li>
+<li><p>运算+访存 <br> <img src="/2018/06/17/计组复习慕课/运算访存.png" alt="test"> <br><br></p>
+</li>
+<li><p>整体 <br> <img src="/2018/06/17/计组复习慕课/数据通路.png" alt="test"> <br><br></p>
+</li>
+<li><p>控制信号的逻辑表达式 <img src="/2018/06/17/计组复习慕课/逻辑表达式.png" alt="test"> <br><br></p>
+</li>
+</ul>
+<h1 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h1><ul>
+<li><p>执行指令的主要步骤（MIPS） <br> <img src="/2018/06/17/计组复习慕课/流水线.png" alt="test"> <br><br></p>
+</li>
+<li><p>超标量流水线： 具有两条或两条以上并行工作的流水线结构称为超标量流水线</p>
+<ul>
+<li>单周期-&gt;标量流水线： 时间并行性</li>
+<li>标量-&gt;超标量流水线： 空间并行性</li>
+</ul>
+</li>
+<li><p>流水线冒险</p>
+<ul>
+<li>结构冒险<ul>
+<li>示例： <br> <img src="/2018/06/17/计组复习慕课/结构冒险.png" alt="test"> <br><br></li>
+<li>解决方法1： 流水线停顿（stall）， 产生空泡（bubble）</li>
+<li>解决方法2： 指令和数据放在不同的存储器</li>
+<li>示例： <br> <img src="/2018/06/17/计组复习慕课/结构冒险2.png" alt="test"> <br><br></li>
+<li>解决方法： 前半周期写， 后半周期读，设置独立的读写接口</li>
+</ul>
+</li>
+<li>数据冒险<ul>
+<li>示例： <br> <img src="/2018/06/17/计组复习慕课/数据冒险1.png" alt="test"> <br><br></li>
+<li>解决方法1： 流水线停顿（stall）， 产生空泡（bubble）</li>
+<li>解决方法2： 数据前递（Forwarding）（前递也叫旁路（Bypass））<ul>
+<li>无法解决的情况： <br> <img src="/2018/06/17/计组复习慕课/数据冒险2.png" alt="test"> <br><br></li>
+<li>解决方法： 停顿 + 前递</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>控制冒险<ul>
+<li>示例： <br> <img src="/2018/06/17/计组复习慕课/控制冒险1.png" alt="test"> <br><br></li>
+<li>无条件直接转移 j Target ： 流水线不停顿， 信息在取指阶段可以获得</li>
+<li>无条件间接转移 jr rs： 停顿一个周期， 译码阶段获得信息</li>
+<li>条件转移 beq rs， rt， imm16： 使译码阶段能判断两数相等则只需停顿一个周期</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="高速缓存-Cache"><a href="#高速缓存-Cache" class="headerlink" title="高速缓存 Cache"></a>高速缓存 Cache</h1><ul>
+<li>Cache 的写策略<ul>
+<li>写穿透/直写： 数据同时写入 Cache 和主存</li>
+<li>写返回： 数据只写入 Cache， 仅当该数据块被替换时数据写回主存</li>
+</ul>
+</li>
+<li>Cache 失效时的写策略<ul>
+<li>写不分配： 直接将数据写入主存</li>
+<li>写分配： 将该数据所在的块读入 Cache 后， 再将数据写入 Cache</li>
+</ul>
+</li>
+<li>Cache 失效的原因：<ul>
+<li>义务失效也称冷启失效： 第一次访问某一数据块（无法有效避免）</li>
+<li>容量失效： Cache 无法保存程序访问所需的数据块（可通过增加 Cache 容量缓解）</li>
+<li>冲突失效： 多个存储器位置映射到同一 Cache 位置</li>
+</ul>
+</li>
+<li>Cache 的映射策略<ul>
+<li>直接映射： 表项只保存一行数据（即只有一个标签， 若有相同标号的表项则直接替换）</li>
+<li>二路组相联： 可以保存在一个表项保存两个不同标签， 第三个标签来再替换</li>
+<li>全相联： 和表中所有比较标签</li>
+</ul>
+</li>
+<li>常见的 Cache 替换算法<ul>
+<li>随机</li>
+<li>轮换： 按预先设定的顺序换</li>
+<li>最近最少使用（LU）： 选择距离现在最长时间未被访问的 Cache 块替换</li>
+</ul>
+</li>
+</ul>
+<h1 id="中断和异常"><a href="#中断和异常" class="headerlink" title="中断和异常"></a>中断和异常</h1><ul>
+<li>8086 ： 最低 1KB （00000H ~ 003FFH） 保留中断向量表</li>
+<li><p>中断处理过程</p>
+<ul>
+<li>关中断： CPU 关闭中断响应， 即不再接受其他<font color="#dd0000"><strong>外部中断</strong></font>请求</li>
+<li>保存断点： 将发生中断处的指令地址压栈。</li>
+<li>识别中断源： CPU 识别中断的来源， 确定中断类型号， 从而找到相应的中断服务程序的入口地址</li>
+<li>保护现场： 将发生中断处的有关寄存器（中断服务程序中要用的寄存器）以及标志寄存器压栈<ul>
+<li>标志寄存器 FLAGS 中第九位 IF 中断标志</li>
+<li>IF = 1 允许可屏蔽中断请求</li>
+<li>STI/CLI 指令将 IF 置 1/0</li>
+<li>对非屏蔽中断和内部中断 IF 不起作用</li>
+</ul>
+</li>
+<li>执行中断服务程序： 转到中断服务程序入口开始执行， 可在适当时候重新开放中断，以响应较高优先级的外部中断</li>
+<li>恢复现场并返回： 把压栈的信息弹回原寄存器并执行中断返回指令<ul>
+<li>IRET 中断返回指令</li>
+<li>操作： 从栈顶弹出三个字， 分别送到 IP， CS 和 FLAGS</li>
+<li>说明： 放在中断服务程序的末尾， 按中断调用时的逆序恢复现场， 返回到程序发生中断处继续执行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>内部中断</p>
+<ul>
+<li>类型0： 除法错中断<ul>
+<li>除法后， 商超过了目标寄存器所能表示的范围（如把 0 作除数）， 则 CPU 立即产生一个类型0中断</li>
+</ul>
+</li>
+<li>类型4： 溢出中断<ul>
+<li>执行 <strong>INTO</strong> 指令时， 若溢出标志位 OF 为1， 则将引起类型4内部中断（若 OF = 0 则 INTO 等价于空指令）</li>
+<li>通常安排在算术运算指令后， 以便发生溢出时能及时处理</li>
+<li>INTO 等价于 INT 4</li>
+</ul>
+</li>
+<li>类型1： 单步中断<ul>
+<li>当标志寄存器的 TF 位置为1， CPU 便处于单步工作状态</li>
+<li>在单步工作状态， CPU 每执行完一条指令， 就会自动产生一个类型1的中断， 进入类型1的中断服务程序</li>
+<li>类型1中断服务程序： 一般用于显示 CPU 内部各寄存器的内容和一些其他信息以便调试</li>
+</ul>
+</li>
+<li>类型3： 断点中断<ul>
+<li>也是一种调试手段， 常和单步中断配合使用</li>
+<li>一般先通过断点将程序的某一错误定位在一小段， 再单步调试</li>
+<li>在所有 INT n 形式的指令中， 只有断点中断指令 INT 3 是一条单字节长的指令， 其他都是两字节</li>
+<li>设置断点： 用断点中断指令 INT 3 代替用户程序原有指令， 保存用户程序原有指令</li>
+<li>恢复执行： 断点中断服务程序返回前， 恢复用户程序的原有指令， 并将 IP 减1， 返回后从断点处继续执行</li>
+</ul>
+</li>
+<li>内部中断的特点：<ul>
+<li>类型号由 CPU 内部产生， 外部中断需要从外设中读取中断类型号</li>
+<li>屏蔽方式： 除单步中断外，所有内部中断都不能用软件方式屏蔽； 单步中断可以设置 TF 的值来允许和禁止</li>
+<li>优先级： 除单步中断外所有内部中断优先级高于外部中断</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>INT 指令说明</p>
+<ul>
+<li>格式： INT n （0 ~ 255）</li>
+<li>操作：<ul>
+<li>FLAGS 压栈</li>
+<li>清除 IF 和 TF</li>
+<li>CS IP 压栈</li>
+<li>查找中断向量表</li>
+<li>入口地址装入 CS IP</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>BIOS 中断</p>
+<ul>
+<li>ROM BIOS<ul>
+<li>装于从地址 0FE00H 开始的 8KB ROM 中</li>
+<li>提供了系统加电自检， 引导装入， 主要 I/O 设备的处理程序及接口控制等</li>
+</ul>
+</li>
+<li>BIOS 各功能模块的入口地址都在中断向量表中， 通过 INT n 调用， 如有需要用寄存器传参</li>
+<li>示例： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MOV AH, 1  # 设置功能号， 对于 1AH， AH = 1 为写时钟 0 为读时钟</span><br><span class="line">MOC CX, 0  # 设置入口参数， CH:CL = 时：分</span><br><span class="line">MOV DX, 0  # DH:DL = 秒： 1/100秒</span><br><span class="line">INT, 1AH   # 调用 1AH 号中断</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>DOS中断</p>
+<ul>
+<li>格式 INT 21H</li>
+<li>功能： 包含最常用的程序功能， 分别实现文件管理， 存储管理等功能</li>
+<li>共用 21H 号中断入口， 通过传参数的方式设置功能号， 以选择执行不同的功能模块</li>
+<li>DOS 中断功能比 BIOS 中断更齐全， 完整， 进一步屏蔽了设备的物理特性及接口特性</li>
+<li>示例： 在屏幕上输出字符 ‘$’ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AH 06  #设置功能号， DOS 6号为屏幕输入输出</span><br><span class="line">MOV DL &apos;$&apos; #设置入口参数， DL 中放待输出的字符 (DL = FF 时为输入 AL = 输入字符）</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="输入输出设备"><a href="#输入输出设备" class="headerlink" title="输入输出设备"></a>输入输出设备</h1><ul>
+<li>I/O 控制方式<ul>
+<li>程序控制方式： 在程序控制下进行数据传送<ul>
+<li>无条件传送方式： 假设外设已经准备好， CPU 直接使用指令和外设传递数据， 不查询外设工作状态<ul>
+<li>优点： 控制程序简单</li>
+<li>缺点： 只适合简单外设</li>
+</ul>
+</li>
+<li>程序查询传送方式： CPU 通过执行一段程序， 不断查询外设的工作状态， 确定外设已经准备好后， 才进行数据传送<ul>
+<li>优点： 比无条件传送准确可靠</li>
+<li>缺点： 查询外设状态占用了大量的时间</li>
+<li>数据输入输出过程参见 <a href="/2018/06/14/计组复习笔记#数据输出"><strong>计组复习笔记 第九讲 0x02 数据输出过程</strong></a></li>
+</ul>
+</li>
+<li>共同的优缺点：<ul>
+<li>优点： 对外设要求低， 流程清晰</li>
+<li>缺点： 由 CPU 进行数据传送， 占用了运算资源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>中断控制方式： <ul>
+<li>数据输入过程： <img src="/2018/06/17/计组复习慕课/并行输入.png" alt="test"> <br><br><ol>
+<li>CPU 执行指令， 将控制字写入<strong>控制寄存器</strong>， 设置工作模式</li>
+<li>外设将数据发到<strong>并行数据输入</strong>信号，并将<strong>输入准备好</strong>信号置为有效</li>
+<li>接口发现<strong>输入准备好</strong>信号有效后， 从<strong>并行数据输入</strong> 信号接收数据， 放入<strong>输入缓冲寄存器</strong>，并将 <strong>输入回答</strong> 信号置为有效，阻止外设输入新数据（和程序查询一样， 但不用反复读取 <strong>状态寄存器</strong> 确认是否有输入）</li>
+<li>接口通过<strong>中断控制逻辑</strong>向 CPU 发出终端请求信号， 并将<strong>状态寄存器</strong> 中的 <strong>输入缓冲满</strong> 置为有效</li>
+<li>CPU 收到中断请求后， 进入中断服务程序， 执行指令从 <strong>状态寄存器</strong> 中读出状态字， 发现 <strong>输入缓冲满</strong> ，因此执行指令， 从 <strong>输入缓冲寄存器</strong> 中读出数据</li>
+<li>接口将 <strong>输入回答</strong> 信号置为无效， 等待外设输入新的数据</li>
+</ol>
+</li>
+<li>数据输出过程： <img src="/2018/06/17/计组复习慕课/并行输出.png" alt="test"> <br><br> <ol>
+<li>CPU 执行指令， 将控制字写入<strong>控制寄存器</strong>， 设置工作模式</li>
+<li>CPU 执行指令，将数据写到接口的<strong>输出缓冲寄存器</strong></li>
+<li>接口将数据发到<strong>并行数据输出</strong>信号，并将<strong>输出准备好</strong>信号置为有效（也可由 CPU 将该字设置为有效）</li>
+<li>外设发现<strong>输出准备好</strong>信号有效后，从<strong>并行数据输出</strong> 信号接收数据， 并将<strong>输出回答</strong>信号置为有效 （与程序控制同）</li>
+<li>接口发现 <strong>输出回答</strong> 信号有效后， 通过 <strong>中断控制逻辑</strong> 向 CPU 发出中断请求信号， 并将 <strong>状态寄存器</strong> 中的状态位 <strong>输出缓冲空</strong> 置为有效</li>
+<li>CPU 收到中断请求后， 进入中断服务程序， 执行指令从 <strong>状态寄存器</strong> 中读出状态字， 发现 <strong>输出缓冲空</strong> ，因此开始下一个输出过程， 继续输出新数据</li>
+</ol>
+</li>
+<li>优点： CPU 和外设可以并行工作， 提高工作效率； 外围设备具有申请服务的主动权</li>
+<li>缺点： <ul>
+<li>外设和存储器之间的数据交换仍由 CPU 承担， 使用数据传送指令， 占用了 CPU 资源</li>
+<li>数据要经过 CPU 中的通用寄存器中转， 过程冗长</li>
+<li>注： <strong>程序查询方式</strong> 也有这些缺点</li>
+<li>进入中断和退出中断服务需要额外的指令</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>直接存储器访问式（DMA）<ul>
+<li>数据传送过程不需要 CPU 干预（不需要执行程序指令）</li>
+<li>由专门硬件电路（DMA控制器， 简称DMAC）控制， 进行外设和存储器间直接数据传送</li>
+<li>DMAC 基本工作步骤： <br> <img src="/2018/06/17/计组复习慕课/DMAC.png" alt="test"> <br><br></li>
+<li>部分接口带有独立的 DMAC 如显卡， 网卡等<ol>
+<li>CPU 设置 DMAC 内部配置寄存器， 一般包括<ul>
+<li>源地址的初始值及传送时的地址增减方式</li>
+<li>目的地址的初始值及传送时的地址增减方式</li>
+<li>待传送的数据长度</li>
+<li>示例： 外设到内存<ul>
+<li>源地址设置为某 I/O 端口， 传送时不变</li>
+<li>目的地址设置为存储器的某个地址， 传送时递增</li>
+<li>待传送数据的长度根据需要设置， 亦可不设置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DMAC 处于空闲等待状态</li>
+<li>I/O 接口向 DMAC 发出 DMA 传送申请</li>
+<li>DMAC 相应 I/O 接口的申请</li>
+<li>DMAC 向 I/O 接口发起总线读传输</li>
+<li>DMAC 向存储器发起总线写传输</li>
+<li>重复 5~6 直到本次 DMA 传送完成</li>
+<li>返回 2 ， 等待下一次 DMA 传送申请</li>
+<li>注： DMA 传输完成后， DMAC 会通过中断信号通知 CPU</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+<ul>
+<li><p>外部中断的处理过程</p>
+<ul>
+<li>外部中断也叫， 由 CPU 外部的中断请求信号启动的中断</li>
+<li>x86 CPU 外部中断提供两个引脚<ul>
+<li>NMI: 非屏蔽中断</li>
+<li>INTR： 可屏蔽中断</li>
+</ul>
+</li>
+<li><img src="/2018/06/17/计组复习慕课/外部中断.png" alt="test"> <br><br></li>
+</ul>
+</li>
+<li><p>可编程中断控制器 PIC （典型 Intel 8259A ）(APIC： 高级PIC）</p>
+<ul>
+<li>早期 PC 中的中断控制器 <br> <img src="/2018/06/17/计组复习慕课/早期中断控制器.png" alt="test"> <br><br></li>
+<li>现代 PC 中的中断控制器 <br> <img src="/2018/06/17/计组复习慕课/现代中断控制器.png" alt="test"> <br><br><ul>
+<li>注： CPU 可以发出中断请求给另一个 CPU 来完成交互</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>中断嵌套</p>
+<ul>
+<li>当 CPU 正在执行中断服务程序时， 发生优先级更高的中断请求</li>
+<li>CPU 相应优先级更高的中断请求， 而将正在处理的中断请求暂时挂起</li>
+<li>CPU 完成优先级更高的中断服务后， 返回此前优先级较低的中断服务程序继续执行</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <footer class="article-footer">
+    
+  <div class="cc">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.z" target="_blank" title="署名-相同方式共享">
+      <img src="/images/cc/cc.png">
+      
+          <img src="/images/cc/by.png">
+        
+          <img src="/images/cc/sa.png">
+      
+      <span>
+        本作品采用知识共享 署名-相同方式共享 4.0 国际许可协议进行许可。
+      </span>
+    </a>
+  </div>
+
+
+    
+
+  </footer>
+</article>
+
+
+
+
+
+
+
+          <div class="main-footer">
+  
+    © 2018 未来机械研究所 - Powered by <a href="http://hexo.io" target="_blank">Hexo</a> - Theme <a href="https://github.com/denjones/hexo-theme-chan" target="_blank">Chan</a>
+  
+</div>
+
+      
+        </div>
+      
+    </div>
+  </div>
+  <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/PhotoSwipe/photoswipe.css">
+  <link rel="stylesheet" href="/PhotoSwipe/default-skin/default-skin.css">
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+             It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides.
+                PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                Don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+        <div class="pswp__top-bar">
+
+          <!--  Controls are self-explanatory. Order can be changed. -->
+
+          <div class="pswp__counter"></div>
+
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/PhotoSwipe/photoswipe.js"></script>
+  <script src="/PhotoSwipe/photoswipe-ui-default.js"></script>
+
+
+<script src="/perfect-scrollbar/js/min/perfect-scrollbar.min.js"></script>
+<script src="/scripts/main.js"></script>
+
+</body>
+</html>
