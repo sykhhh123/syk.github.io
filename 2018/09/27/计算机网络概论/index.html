@@ -8,22 +8,22 @@
 
 <title>
   
-    CTF Web 萌新的小笔记
+    计算机网络概论
   
 </title>
 
-<meta name="description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
-<meta name="keywords" content="CTF">
+<meta name="description" content="第二讲 重点： 组播技术 网络技术 评判网络的性能指标   计算机网络的定义 地理分散 独立功能 通信系统 共享资源 信息交流   计算机网络的元素 主机（用户终端，服务器） 通信链路 交换节点 拓扑结构 通信软件   计算机网络的分类 有线网络 无线网络(同频，单信道 -&amp;gt; 信号检测困难，信道管理复杂 -&amp;gt; 以太网， wifi 协议控制) 范围小到大 个域网 10m 左右 段距离">
+<meta name="keywords" content="学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTF Web 萌新的小笔记">
-<meta property="og:url" content="https://sykhhh123.github.io/2018/07/11/CTF-Web-萌新的小笔记/index.html">
+<meta property="og:title" content="计算机网络概论">
+<meta property="og:url" content="https://sykhhh123.github.io/2018/09/27/计算机网络概论/index.html">
 <meta property="og:site_name" content="未来机械研究所">
-<meta property="og:description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
+<meta property="og:description" content="第二讲 重点： 组播技术 网络技术 评判网络的性能指标   计算机网络的定义 地理分散 独立功能 通信系统 共享资源 信息交流   计算机网络的元素 主机（用户终端，服务器） 通信链路 交换节点 拓扑结构 通信软件   计算机网络的分类 有线网络 无线网络(同频，单信道 -&amp;gt; 信号检测困难，信道管理复杂 -&amp;gt; 以太网， wifi 协议控制) 范围小到大 个域网 10m 左右 段距离">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-21T09:08:06.004Z">
+<meta property="og:updated_time" content="2018-09-27T01:50:05.273Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CTF Web 萌新的小笔记">
-<meta name="twitter:description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
+<meta name="twitter:title" content="计算机网络概论">
+<meta name="twitter:description" content="第二讲 重点： 组播技术 网络技术 评判网络的性能指标   计算机网络的定义 地理分散 独立功能 通信系统 共享资源 信息交流   计算机网络的元素 主机（用户终端，服务器） 通信链路 交换节点 拓扑结构 通信软件   计算机网络的分类 有线网络 无线网络(同频，单信道 -&amp;gt; 信号检测困难，信道管理复杂 -&amp;gt; 以太网， wifi 协议控制) 范围小到大 个域网 10m 左右 段距离">
 
 
   <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
@@ -147,36 +147,140 @@
       
         <div style="max-width: 1000px">
       
-          <article id="post-CTF-Web-萌新的小笔记" class="article article-type-post">
+          <article id="post-计算机网络概论" class="article article-type-post">
   
     <h1 class="article-header">
-      CTF Web 萌新的小笔记
+      计算机网络概论
     </h1>
   
   
 
   <div class="article-info">
     <span class="article-date">
-  2018-07-11
+  2018-09-27
 </span>
 
     
 
     
 	<span class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
 	</span>
 
 
   </div>
   <div class="article-entry">
-    <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
-<li><a href="#文件上传">文件上传</a></li>
-<li></li>
-</ol>
-<p><a name="文件上传"></a></p>
-<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><ul>
-<li>上传 php 文件并过滤 &lt;?php ?&gt; 标签的时候 可以使用 <script language="PHP"></script> 绕过<br><br>如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过<br><br>题目出处： 2017 百度杯9月场 Upload</li>
+    <a id="more"></a> 
+<h1 id="第二讲"><a href="#第二讲" class="headerlink" title="第二讲"></a>第二讲</h1><ul>
+<li>重点：<ul>
+<li><font color="0x00000fff">组播技术</font></li>
+<li><font color="0x00000fff">网络技术</font></li>
+<li><font color="0x00000fff">评判网络的性能指标</font></li>
+</ul>
+</li>
+<li>计算机网络的定义<ul>
+<li>地理分散</li>
+<li>独立功能</li>
+<li>通信系统</li>
+<li>共享资源</li>
+<li>信息交流</li>
+</ul>
+</li>
+<li>计算机网络的元素<ul>
+<li>主机（用户终端，服务器）</li>
+<li>通信链路</li>
+<li>交换节点</li>
+<li>拓扑结构</li>
+<li>通信软件</li>
+</ul>
+</li>
+<li>计算机网络的分类<ul>
+<li>有线网络 无线网络(同频，单信道 -&gt; 信号检测困难，信道管理复杂 -&gt; 以太网， wifi 协议控制)</li>
+<li>范围小到大<ul>
+<li>个域网 10m 左右 段距离无线通信标准：蓝牙</li>
+<li>局域网 有线/无线 </li>
+<li>城域网</li>
+<li>广域网  </li>
+</ul>
+</li>
+<li>广播网络 点-点网络<ul>
+<li><font color="0x00000fff">广播网络</font><ul>
+<li>广播信道：只有一个通信信道(共享介质)</li>
+<li>单播：一对一的通信模式， 发送者将消息发给制定的某个接收者 <br>节点标识自己的 ID， 发送时指定， 接收方检查</li>
+<li>广播：一对全部的通信模式<br> 必须有表示全体接收者的ID/发送节点对每个结点单播</li>
+<li>组播：一对多的通信模式<br> 必须有标识某个组成员的ID</li>
+</ul>
+</li>
+<li>点-点网络：由许多一对对计算机之间的链路组成<ul>
+<li>多跳传输， 消息需要借助其他结点辅助完成</li>
+</ul>
+</li>
+<li>小型，位置集中-&gt;广播<br>大型，位置分散-&gt;点-点网络 </li>
+</ul>
+</li>
+<li>电路交换网络 包交换网络<ul>
+<li>交换<ul>
+<li>主叫和被叫必须建立一条专用网络</li>
+<li>通信器件该电路保持连接并不为他人用</li>
+</ul>
+</li>
+<li>基于电路交换的数据传输<ul>
+<li>类似长途电话，按时间收费(链接建立就不为他用)</li>
+<li>硬交换，分成 20W 条线路就只能同时连同 20W 的链接</li>
+<li>优点：<ul>
+<li>实时性好，传输时间+建立时间</li>
+<li>稳定的数据传输速率</li>
+<li>不存在信道访问延迟</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>不能充分发挥传输介质潜力</li>
+<li>长距离连接的建立过程长</li>
+<li>扩展性较差(硬件成本)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>“存储-转发”技术<ul>
+<li>存储-转发：交换节点接受并存储包， 然后根据包的目标地址转发到通往目的地的出境线路上(处理速率小于包文到达速率，必须存储)</li>
+<li>报文 vs 数据报/包<ul>
+<li>报文：用户发的原始数据(文件)</li>
+<li>数据报包：数据块大小固定 </li>
+<li>packet： 数据报，包，分组<br> 文件分成多个packet</li>
+</ul>
+</li>
+<li>“存储-转发”时延：处理时延(处理+发送包)+排队时延(包排队等待发送)<br>现在处理时间极小可以忽略看作 发送+排队时间</li>
+<li>包交换并发传输</li>
+<li>包交换技术优点：<ul>
+<li>宽带有效利用</li>
+<li>链路故障可选择其他链路</li>
+</ul>
+</li>
+<li>包交换技术缺点<ul>
+<li>存储，排队延时</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><font color="0x00000fff">如何评价计算机网络</font>：<ul>
+<li>传输能力：带宽/吞吐量： 信号的频带宽度 单位赫兹Hz，通信线路允许通过的信号频带范围</li>
+<li>数据率/比特率： 传送数字信号的速率， 单位bps ，每秒二进制位传输数量</li>
+<li>传输速度<ul>
+<li>延迟：一个报文/包从一个网络(或一条链路)的一端传送到另一端所需要的时间。</li>
+<li>发送时延/传输时延： 使数据块葱节点进入传输介质的时间</li>
+<li>传播延迟：信号在信道中传播一定距离而花费的时间(传播延迟 = 信道长度 / 电磁波的传播速率)</li>
+<li>处理时延：交换节点存储转发儿进行必要处理所花费的时间时延（包处理，路径选择，排队）</li>
+</ul>
+</li>
+<li>丢包率：丢失的包与发送的包的比率</li>
+<li>吞吐量：发送者和接收者之间传输数据获得的比特率</li>
+<li>瓶颈链路： 制约着端-端吞吐量的那条链路  </li>
+</ul>
+</li>
 </ul>
 
   </div>

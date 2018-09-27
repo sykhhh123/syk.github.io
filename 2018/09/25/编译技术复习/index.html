@@ -8,22 +8,22 @@
 
 <title>
   
-    CTF Web 萌新的小笔记
+    编译技术复习
   
 </title>
 
-<meta name="description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
-<meta name="keywords" content="CTF">
+<meta name="description" content="第二章 一个简单的语法指导翻译器2.1  引言">
+<meta name="keywords" content="学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTF Web 萌新的小笔记">
-<meta property="og:url" content="https://sykhhh123.github.io/2018/07/11/CTF-Web-萌新的小笔记/index.html">
+<meta property="og:title" content="编译技术复习">
+<meta property="og:url" content="https://sykhhh123.github.io/2018/09/25/编译技术复习/index.html">
 <meta property="og:site_name" content="未来机械研究所">
-<meta property="og:description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
+<meta property="og:description" content="第二章 一个简单的语法指导翻译器2.1  引言">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-21T09:08:06.004Z">
+<meta property="og:updated_time" content="2018-09-27T01:49:51.752Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CTF Web 萌新的小笔记">
-<meta name="twitter:description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
+<meta name="twitter:title" content="编译技术复习">
+<meta name="twitter:description" content="第二章 一个简单的语法指导翻译器2.1  引言">
 
 
   <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
@@ -147,36 +147,65 @@
       
         <div style="max-width: 1000px">
       
-          <article id="post-CTF-Web-萌新的小笔记" class="article article-type-post">
+          <article id="post-编译技术复习" class="article article-type-post">
   
     <h1 class="article-header">
-      CTF Web 萌新的小笔记
+      编译技术复习
     </h1>
   
   
 
   <div class="article-info">
     <span class="article-date">
-  2018-07-11
+  2018-09-25
 </span>
 
     
 
     
 	<span class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
 	</span>
 
 
   </div>
   <div class="article-entry">
-    <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
-<li><a href="#文件上传">文件上传</a></li>
-<li></li>
-</ol>
-<p><a name="文件上传"></a></p>
-<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><ul>
-<li>上传 php 文件并过滤 &lt;?php ?&gt; 标签的时候 可以使用 <script language="PHP"></script> 绕过<br><br>如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过<br><br>题目出处： 2017 百度杯9月场 Upload</li>
+    <h1 id="第二章-一个简单的语法指导翻译器"><a href="#第二章-一个简单的语法指导翻译器" class="headerlink" title="第二章 一个简单的语法指导翻译器"></a>第二章 一个简单的语法指导翻译器</h1><h2 id="2-1-引言"><a href="#2-1-引言" class="headerlink" title="2.1  引言"></a>2.1  引言</h2><a id="more"></a> 
+<ul>
+<li><em>语法</em>：描述该语言的程序的正确形式</li>
+<li><em>语义</em>：定义了程序的含义</li>
+<li><em>词法单元</em>：例如 <em>count</em> + 1 中的标识符 <em>count</em> 被当作一个单元</li>
+</ul>
+<h2 id="2-2-语法定义"><a href="#2-2-语法定义" class="headerlink" title="2.2 语法定义"></a>2.2 语法定义</h2><ul>
+<li><p>一个<strong>上下文无关文法</strong>由四个元素组成：</p>
+<ul>
+<li>一个<font color="#0099ff"><strong>终结符号</strong></font>集合， 它们有时也称为“词法单元”。终结符号是该文法所定义的语言的文本符号的集合</li>
+<li>一个<font color="#0099ff"><strong>非终结符号</strong></font>集合， 它们有时也称为“语法变量”。 每个非终结符号表示一个终结符号串的集合。</li>
+<li>一个<font color="#0099ff"><strong>产生式</strong></font>集合， 其中每个产生式包括一个成为 <em>产生式头</em> 或 <em>左部</em>， 一个 <em>箭头</em>， 一个称为 <em>产生式体</em> 或 <em>右部</em> 的由终结符号及非终结符号组成的序列</li>
+<li>指定一个非终结符号为<font color="#0099ff"><strong>开始</strong></font>符号</li>
+</ul>
+</li>
+<li><p>假设数位， 符号(如 &lt;, &lt;=)和黑体字符串（如“<strong>while</strong>”)为终结符号， 斜体字符串为非终结符号。</p>
+</li>
+<li><p>例子：<br><br> <em>list</em> -&gt; <em>list</em> + <em>digit</em><br><br> <em>list</em> -&gt; <em>list</em> - <em>digit</em><br><br> &nbsp; <em>list</em> -&gt; <em>digit</em><br><br> <em>digit</em>-&gt;0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</p>
+</li>
+<li><p>运算符结合性</p>
+<ul>
+<li><ul>
+<li><ul>
+<li>等左结合（一个数两边都有运算符的时候参与左侧运算符）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>=+ -= 等右结合</li>
+</ul>
+</li>
+<li>运算优先级：例子<br><br> <em>term</em>-&gt; <em>term</em> <em> </em>factor<em> | </em>term<em> / </em>factor<em> | factor<br><br> </em>expr<em>-&gt; </em>expr<em> + </em>term<em> | </em>expr<em> - </em>term<em> | </em>term<em><br><br> </em>factor*-&gt; <strong>digit</strong> | (expr)</li>
+</ul>
+<h2 id="2-3-语法制导翻译"><a href="#2-3-语法制导翻译" class="headerlink" title="2.3 语法制导翻译"></a>2.3 语法制导翻译</h2><ul>
+<li><font color="#0099ff"><strong>属性</strong></font>：与某个程序构造相关的任意的量。比如数据类型等。</li>
+<li><font color="#0099ff"><strong>翻译方案</strong></font>：是一种将程序片段附加到一个文法的各个产生式上的表示方法。</li>
 </ul>
 
   </div>

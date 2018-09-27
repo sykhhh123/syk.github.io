@@ -8,22 +8,22 @@
 
 <title>
   
-    CTF Web 萌新的小笔记
+    操作系统
   
 </title>
 
-<meta name="description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
-<meta name="keywords" content="CTF">
+<meta name="description" content="第一讲中央处理器(CPU) 处理器由运算器，控制器，一系列的寄存器以及高速缓存构成 两类寄存器：  用户可见寄存器 控制和状态寄存器： 程序计数器 指令寄存器 程序状态字     操作系统的需求——保护  从操作系统的特征考虑： 并发，共享-&amp;gt;实现保护和控制 硬件提供基本运行机制： 处理器具有特权级别，能在不同的特权级别运行不同指令集合 将 OS 和用户程序隔离       处理器的状态">
+<meta name="keywords" content="学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTF Web 萌新的小笔记">
-<meta property="og:url" content="https://sykhhh123.github.io/2018/07/11/CTF-Web-萌新的小笔记/index.html">
+<meta property="og:title" content="操作系统">
+<meta property="og:url" content="https://sykhhh123.github.io/2018/09/26/操作系统/index.html">
 <meta property="og:site_name" content="未来机械研究所">
-<meta property="og:description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
+<meta property="og:description" content="第一讲中央处理器(CPU) 处理器由运算器，控制器，一系列的寄存器以及高速缓存构成 两类寄存器：  用户可见寄存器 控制和状态寄存器： 程序计数器 指令寄存器 程序状态字     操作系统的需求——保护  从操作系统的特征考虑： 并发，共享-&amp;gt;实现保护和控制 硬件提供基本运行机制： 处理器具有特权级别，能在不同的特权级别运行不同指令集合 将 OS 和用户程序隔离       处理器的状态">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-21T09:08:06.004Z">
+<meta property="og:updated_time" content="2018-09-27T01:49:58.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CTF Web 萌新的小笔记">
-<meta name="twitter:description" content="目录 文件上传    文件上传 上传 php 文件并过滤 &amp;lt;?php ?&amp;gt; 标签的时候 可以使用  绕过如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过题目出处： 2017 百度杯9月场 Upload">
+<meta name="twitter:title" content="操作系统">
+<meta name="twitter:description" content="第一讲中央处理器(CPU) 处理器由运算器，控制器，一系列的寄存器以及高速缓存构成 两类寄存器：  用户可见寄存器 控制和状态寄存器： 程序计数器 指令寄存器 程序状态字     操作系统的需求——保护  从操作系统的特征考虑： 并发，共享-&amp;gt;实现保护和控制 硬件提供基本运行机制： 处理器具有特权级别，能在不同的特权级别运行不同指令集合 将 OS 和用户程序隔离       处理器的状态">
 
 
   <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
@@ -147,36 +147,76 @@
       
         <div style="max-width: 1000px">
       
-          <article id="post-CTF-Web-萌新的小笔记" class="article article-type-post">
+          <article id="post-操作系统" class="article article-type-post">
   
     <h1 class="article-header">
-      CTF Web 萌新的小笔记
+      操作系统
     </h1>
   
   
 
   <div class="article-info">
     <span class="article-date">
-  2018-07-11
+  2018-09-26
 </span>
 
     
 
     
 	<span class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
 	</span>
 
 
   </div>
   <div class="article-entry">
-    <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
-<li><a href="#文件上传">文件上传</a></li>
-<li></li>
-</ol>
-<p><a name="文件上传"></a></p>
-<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><ul>
-<li>上传 php 文件并过滤 &lt;?php ?&gt; 标签的时候 可以使用 <script language="PHP"></script> 绕过<br><br>如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过<br><br>题目出处： 2017 百度杯9月场 Upload</li>
+    <a id="more"></a> 
+<h1 id="第一讲"><a href="#第一讲" class="headerlink" title="第一讲"></a>第一讲</h1><h2 id="中央处理器-CPU"><a href="#中央处理器-CPU" class="headerlink" title="中央处理器(CPU)"></a>中央处理器(CPU)</h2><ul>
+<li>处理器由运算器，控制器，一系列的寄存器以及高速缓存构成</li>
+<li><p>两类寄存器：</p>
+<ul>
+<li><font color="0x000000009ff">用户可见寄存器</font></li>
+<li><font color="0x000000009ff">控制和状态寄存器</font>：<ul>
+<li>程序计数器</li>
+<li>指令寄存器</li>
+<li>程序状态字</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>操作系统的需求——保护</p>
+<ul>
+<li>从操作系统的特征考虑：<ul>
+<li>并发，共享-&gt;实现保护和控制</li>
+<li>硬件提供基本运行机制：<ul>
+<li>处理器具有特权级别，能在不同的特权级别运行不同指令集合</li>
+<li>将 OS 和用户程序隔离</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>处理器的状态(模式：mod)</p>
+<ul>
+<li><font color="0x000000009ff">程序状态字寄存器(PSW)</font> 中专门设置若干位</li>
+</ul>
+</li>
+<li><p>特权指令和非特权指令</p>
+<ul>
+<li>操作系统需要两种状态： <strong>内核态</strong> 和 <strong>用户态</strong></li>
+<li>特权指令：启动I/O 内存清零 修改程序状态字 设置时钟 允许/禁止中断 停机</li>
+<li>非特权指令： 控制转移 算术 访管指令</li>
+<li>x86 支持 R0-R3 四个级别特权指令 R0 相当于用户态 R3 相当于内核态</li>
+</ul>
+</li>
+<li><p>CPU状态之间的转换</p>
+<ul>
+<li>用户态-&gt;内核态： 只能中断/异常/陷入机制</li>
+<li>内核态-&gt;用户态： 设置 PSW</li>
+<li>特殊指令：访管指令（即陷入指令） 提供给用户程序接口调用操作系统的功能 <br> int, trap, syscall, sysenter/sysexit</li>
+</ul>
+</li>
 </ul>
 
   </div>
