@@ -12,18 +12,18 @@
   
 </title>
 
-<meta name="description" content="第二讲 重点： 组播技术 网络技术 评判网络的性能指标   计算机网络的定义 地理分散 独立功能 通信系统 共享资源 信息交流   计算机网络的元素 主机（用户终端，服务器） 通信链路 交换节点 拓扑结构 通信软件   计算机网络的分类 有线网络 无线网络(同频，单信道 -&amp;gt; 信号检测困难，信道管理复杂 -&amp;gt; 以太网， wifi 协议控制) 范围小到大 个域网 10m 左右 段距离">
+<meta name="description" content="第二讲 重点：  组播技术 网络技术 评判网络的性能指标">
 <meta name="keywords" content="学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络概论">
 <meta property="og:url" content="https://sykhhh123.github.io/2018/09/27/计算机网络概论/index.html">
 <meta property="og:site_name" content="未来机械研究所">
-<meta property="og:description" content="第二讲 重点： 组播技术 网络技术 评判网络的性能指标   计算机网络的定义 地理分散 独立功能 通信系统 共享资源 信息交流   计算机网络的元素 主机（用户终端，服务器） 通信链路 交换节点 拓扑结构 通信软件   计算机网络的分类 有线网络 无线网络(同频，单信道 -&amp;gt; 信号检测困难，信道管理复杂 -&amp;gt; 以太网， wifi 协议控制) 范围小到大 个域网 10m 左右 段距离">
+<meta property="og:description" content="第二讲 重点：  组播技术 网络技术 评判网络的性能指标">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-27T01:50:05.273Z">
+<meta property="og:updated_time" content="2018-10-08T09:01:01.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络概论">
-<meta name="twitter:description" content="第二讲 重点： 组播技术 网络技术 评判网络的性能指标   计算机网络的定义 地理分散 独立功能 通信系统 共享资源 信息交流   计算机网络的元素 主机（用户终端，服务器） 通信链路 交换节点 拓扑结构 通信软件   计算机网络的分类 有线网络 无线网络(同频，单信道 -&amp;gt; 信号检测困难，信道管理复杂 -&amp;gt; 以太网， wifi 协议控制) 范围小到大 个域网 10m 左右 段距离">
+<meta name="twitter:description" content="第二讲 重点：  组播技术 网络技术 评判网络的性能指标">
 
 
   <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
@@ -101,7 +101,7 @@
             
               <li class="archive-list-container">
                 <a href="javascript:;">归档</a>
-                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">8</span></li></ul>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">9</span></li></ul>
               </li>
             
           
@@ -170,15 +170,17 @@
 
   </div>
   <div class="article-entry">
-    <a id="more"></a> 
-<h1 id="第二讲"><a href="#第二讲" class="headerlink" title="第二讲"></a>第二讲</h1><ul>
-<li>重点：<ul>
+    <h1 id="第二讲"><a href="#第二讲" class="headerlink" title="第二讲"></a>第二讲</h1><ul>
+<li><p>重点：</p>
+<ul>
 <li><font color="0x00000fff">组播技术</font></li>
 <li><font color="0x00000fff">网络技术</font></li>
-<li><font color="0x00000fff">评判网络的性能指标</font></li>
+<li><font color="0x00000fff">评判网络的性能指标</font><a id="more"></a> 
+</li>
 </ul>
 </li>
-<li>计算机网络的定义<ul>
+<li><p>计算机网络的定义</p>
+<ul>
 <li>地理分散</li>
 <li>独立功能</li>
 <li>通信系统</li>
@@ -279,6 +281,36 @@
 <li>丢包率：丢失的包与发送的包的比率</li>
 <li>吞吐量：发送者和接收者之间传输数据获得的比特率</li>
 <li>瓶颈链路： 制约着端-端吞吐量的那条链路  </li>
+</ul>
+</li>
+</ul>
+<h1 id="第三讲"><a href="#第三讲" class="headerlink" title="第三讲"></a>第三讲</h1><ul>
+<li>计算机网络协议的要素<ul>
+<li>语法：数据结构，编码和信号电平等</li>
+<li>语义：用于协调和差错处理的的控制信息</li>
+<li>时序：传输速率匹配和事件先后顺序</li>
+</ul>
+</li>
+<li>服务分类<ul>
+<li>有连接服务：类似于电话，本质是一个管道，需要双方共同参与， 根据数据发送时是否保持原样又分为两类<ul>
+<li>报文序列： 保持发送数据边界（发送方分四次， 接收方收四次）</li>
+<li>字节流： 接收方的报文不需要保持数据边界</li>
+</ul>
+</li>
+<li>无连接服务： 类似于邮政服务<ul>
+<li>无确认： 用户不能确定接收方是否收到</li>
+<li>有确认： 用户能确认接收方是否已经收到</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如何使用下层服务<ul>
+<li>原语<ul>
+<li>Request， Indication， Response， Comfirm</li>
+<li>（上）发送请求， （下）通知发生某事件（给另一个上层对等实体）， （另一个上）做出回应，（下）报告另一个上层对某事的响应 </li>
+</ul>
+</li>
+<li>参数       </li>
 </ul>
 </li>
 </ul>

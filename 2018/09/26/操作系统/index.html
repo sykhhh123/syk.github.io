@@ -12,18 +12,21 @@
   
 </title>
 
-<meta name="description" content="第一讲中央处理器(CPU) 处理器由运算器，控制器，一系列的寄存器以及高速缓存构成 两类寄存器：  用户可见寄存器 控制和状态寄存器： 程序计数器 指令寄存器 程序状态字     操作系统的需求——保护  从操作系统的特征考虑： 并发，共享-&amp;gt;实现保护和控制 硬件提供基本运行机制： 处理器具有特权级别，能在不同的特权级别运行不同指令集合 将 OS 和用户程序隔离       处理器的状态">
+<meta name="description" content="第一讲中央处理器(CPU)">
 <meta name="keywords" content="学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统">
 <meta property="og:url" content="https://sykhhh123.github.io/2018/09/26/操作系统/index.html">
 <meta property="og:site_name" content="未来机械研究所">
-<meta property="og:description" content="第一讲中央处理器(CPU) 处理器由运算器，控制器，一系列的寄存器以及高速缓存构成 两类寄存器：  用户可见寄存器 控制和状态寄存器： 程序计数器 指令寄存器 程序状态字     操作系统的需求——保护  从操作系统的特征考虑： 并发，共享-&amp;gt;实现保护和控制 硬件提供基本运行机制： 处理器具有特权级别，能在不同的特权级别运行不同指令集合 将 OS 和用户程序隔离       处理器的状态">
+<meta property="og:description" content="第一讲中央处理器(CPU)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-27T01:49:58.446Z">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/09/26/操作系统/中断响应示意.png">
+<meta property="og:image" content="https://sykhhh123.github.io/2018/09/26/操作系统/中断响应示意图.png">
+<meta property="og:updated_time" content="2018-10-09T06:16:51.242Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统">
-<meta name="twitter:description" content="第一讲中央处理器(CPU) 处理器由运算器，控制器，一系列的寄存器以及高速缓存构成 两类寄存器：  用户可见寄存器 控制和状态寄存器： 程序计数器 指令寄存器 程序状态字     操作系统的需求——保护  从操作系统的特征考虑： 并发，共享-&amp;gt;实现保护和控制 硬件提供基本运行机制： 处理器具有特权级别，能在不同的特权级别运行不同指令集合 将 OS 和用户程序隔离       处理器的状态">
+<meta name="twitter:description" content="第一讲中央处理器(CPU)">
+<meta name="twitter:image" content="https://sykhhh123.github.io/2018/09/26/操作系统/中断响应示意.png">
 
 
   <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
@@ -101,7 +104,7 @@
             
               <li class="archive-list-container">
                 <a href="javascript:;">归档</a>
-                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">8</span></li></ul>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">9</span></li></ul>
               </li>
             
           
@@ -170,8 +173,8 @@
 
   </div>
   <div class="article-entry">
-    <a id="more"></a> 
-<h1 id="第一讲"><a href="#第一讲" class="headerlink" title="第一讲"></a>第一讲</h1><h2 id="中央处理器-CPU"><a href="#中央处理器-CPU" class="headerlink" title="中央处理器(CPU)"></a>中央处理器(CPU)</h2><ul>
+    <h1 id="第一讲"><a href="#第一讲" class="headerlink" title="第一讲"></a>第一讲</h1><h2 id="中央处理器-CPU"><a href="#中央处理器-CPU" class="headerlink" title="中央处理器(CPU)"></a>中央处理器(CPU)</h2><a id="more"></a> 
+<ul>
 <li>处理器由运算器，控制器，一系列的寄存器以及高速缓存构成</li>
 <li><p>两类寄存器：</p>
 <ul>
@@ -215,6 +218,181 @@
 <li>用户态-&gt;内核态： 只能中断/异常/陷入机制</li>
 <li>内核态-&gt;用户态： 设置 PSW</li>
 <li>特殊指令：访管指令（即陷入指令） 提供给用户程序接口调用操作系统的功能 <br> int, trap, syscall, sysenter/sysexit</li>
+</ul>
+</li>
+</ul>
+<h1 id="第二讲"><a href="#第二讲" class="headerlink" title="第二讲"></a>第二讲</h1><h2 id="1-中断机制"><a href="#1-中断机制" class="headerlink" title="1. 中断机制"></a>1. 中断机制</h2><ul>
+<li>操作系统是由 “中断驱动” 或 “事件驱动” 的</li>
+<li>主要作用<ul>
+<li>及时处理设备发来的中断请求</li>
+<li>可使 OS 可以捕获用户程序提出的服务请求</li>
+<li>防止用户程序执行过程中的破坏性活动</li>
+<li>等等  </li>
+</ul>
+</li>
+<li>中断与异常引入的原因<ul>
+<li>中断的引入： 为了支持 CPU 和谁被指间的并行操作</li>
+<li>异常的引入： 表示 CPU 执行指令时本身出现的问题 （算术溢出， 除 0 等）</li>
+</ul>
+</li>
+<li>中断/异常的概念<ul>
+<li>CPU 对系统发生的某个事件的一种反应， <font color="0x000000009ff">结果：改变控制流</font></li>
+<li>CPU 暂停当前程序， 保留现场， 执行处理程序， 返回断点继续执行。（实际上现在是返回调度程序， 选择一个程序运行而不是立刻返回）</li>
+<li>特点：<ul>
+<li>随时发生</li>
+<li>自动处理</li>
+<li>可恢复  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-事件"><a href="#2-事件" class="headerlink" title="2.事件"></a>2.事件</h2><ul>
+<li>中断（外中断）<ul>
+<li>I/O 中断</li>
+<li>时钟中断</li>
+<li>硬件故障</li>
+</ul>
+</li>
+<li>异常（内中断）/例外<ul>
+<li>系统调用</li>
+<li>页错误</li>
+<li>保护性异常</li>
+<li>断点指令</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-中断-异常机制工作原理"><a href="#3-中断-异常机制工作原理" class="headerlink" title="3.中断/异常机制工作原理"></a>3.中断/异常机制工作原理</h2><ul>
+<li>硬件（中断响应）： 补货中断源发出的中断/异常请求， 以一定方式响应， 将控制权交给处理程序</li>
+<li>软件（中断处理）： 识别中断/异常类型并完成相应的处理</li>
+</ul>
+<h2 id="4-中断响应"><a href="#4-中断响应" class="headerlink" title="4.中断响应"></a>4.中断响应</h2><ul>
+<li>处理器控制部件中设有<font color="0x000000009ff">中断寄存器</font></li>
+<li><img src="/2018/09/26/操作系统/中断响应示意.png" alt="test"></li>
+</ul>
+<h2 id="5-中断向量表"><a href="#5-中断向量表" class="headerlink" title="5.中断向量表"></a>5.中断向量表</h2><ul>
+<li>中断向量： 一个内存单元， 存放中断处理程序入口地址和程序运行所需的处理机状态字</li>
+<li>硬件执行流程： 按中断号/异常类型的不同，通过中断向量表转移控制权给中断处理程序</li>
+<li>中断响应示意图<ul>
+<li><img src="/2018/09/26/操作系统/中断响应示意图.png" alt="test"> <br></li>
+<li>硬件只负责保留 PSW 和 PC 两个重要数据（推入系统栈， 不是用户栈）， 其他保护现场工作由中断处理程序操作   </li>
+</ul>
+</li>
+</ul>
+<h2 id="6-中断处理程序"><a href="#6-中断处理程序" class="headerlink" title="6.中断处理程序"></a>6.中断处理程序</h2><ul>
+<li>设计操作系统时， 为每一类中断/异常事件编好处理程序， 设置中断向量表</li>
+<li>系统运行时若相应中断， 中断硬件部分将 CPU 控制权转给中断处理程序<ul>
+<li>保存相关寄存器</li>
+<li>分析中断/异常的具体原因</li>
+<li>执行对应处理</li>
+<li>恢复现场， 返回被打断的程序</li>
+</ul>
+</li>
+</ul>
+<h2 id="IA32-中断实例"><a href="#IA32-中断实例" class="headerlink" title="IA32 中断实例"></a>IA32 中断实例</h2><h3 id="基本概念——x86"><a href="#基本概念——x86" class="headerlink" title="基本概念——x86"></a>基本概念——x86</h3><ul>
+<li>中断：硬件信号引发， 分可屏蔽和不可屏蔽</li>
+<li>异常：指令执行引发， 对于某些异常 CPU 会执行异常处理程序之前产生硬件出错码并压入内核态堆栈    </li>
+<li>中断控制器 PIC / APIC： 转换硬件中断信号为中断向量， 引发中断</li>
+<li>实模式： 中断向量表<ul>
+<li>入口地址 = 段 &lt;&lt; 4 + 偏移</li>
+<li>不支持 CPU 状态切换</li>
+<li>与一般的过程调用相似   </li>
+</ul>
+</li>
+<li>保护模式： 中断描述符表<ul>
+<li>采用门描述符（中断描述符）数据结构描述中断向量</li>
+<li>任务门 <ul>
+<li>中断发生时， 必须把取代当前进程的进程的 TSS 选择符放在任务门（linux 未使用）  </li>
+</ul>
+</li>
+<li>中断门<ul>
+<li>给出段选择符， 段偏移量  </li>
+<li><font color="0x000000009ff">通过中断门后系统会自动禁止中断</font>  </li>
+</ul>
+</li>
+<li>陷阱门<ul>
+<li>与中断门类似， 但不自动关中断  </li>
+</ul>
+</li>
+<li>调用门 （linux 未使用）</li>
+</ul>
+</li>
+<li>具体结构见图  </li>
+<li>处理过程<ul>
+<li>确定相关向量</li>
+<li>通过IDTR寄存器找到IDT表，获得中断描述符(表中的第i项)</li>
+<li>从GDTR寄存器获得GDT的地址;结合中断描述符中的段选择符，在GDT表获取对应的段描述符;从该段 描述符中得到中断或异常处理程序所在的段基址</li>
+<li>特权级检查</li>
+</ul>
+</li>
+<li>特权级检查（数值越小特权级越高）<ul>
+<li>确保 CPL （当前程序运行的权限级别，存放在CS 寄存器中） ≤ 门描述符 DPL<ul>
+<li>避免应用程序访问特殊的陷阱们或中断门 </li>
+</ul>
+</li>
+<li>确保 CPL ≤ 段描述符 DPL <ul>
+<li>当前特权级不低于中断处理程序的特权级  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>检查是否发生特权级改变， 若有， 则进行堆栈切换</li>
+<li>硬件压栈</li>
+<li>若为中断， 则清 IF 位（屏蔽中断）</li>
+<li>通过中断描述符内偏移和段描述符的地址找到中断处理程序</li>
+</ul>
+<h2 id="操作系统运行机制（系统调用）"><a href="#操作系统运行机制（系统调用）" class="headerlink" title="操作系统运行机制（系统调用）"></a>操作系统运行机制（系统调用）</h2><h3 id="系统调用-System-call"><a href="#系统调用-System-call" class="headerlink" title="系统调用 System call"></a>系统调用 System call</h3><ul>
+<li>用户在<strong>编程时</strong>可以调用的操作系统功能</li>
+<li>是操作系统提供给编程人员的唯一借口</li>
+<li>使 CPU 状态从用户态陷入内核态</li>
+<li>系统调用和 C 函数库/ API 接口之间的关系（具体见图）</li>
+<li>系统调用对应的代码称为内核函数</li>
+</ul>
+<h3 id="系统调用机制设计与执行过程"><a href="#系统调用机制设计与执行过程" class="headerlink" title="系统调用机制设计与执行过程"></a>系统调用机制设计与执行过程</h3><ol>
+<li>中断/异常机制</li>
+<li>选择一条特殊指令：陷入指令（访管指令）：引发异常， 引发用户态到内核态切换 </li>
+<li>系统调用号与参数： 每个系统调用都事先给定编号</li>
+<li>系统调用表： 存放系统调用服务例程（内核函数）的入口地址<ul>
+<li>中断向量表 ≠ 系统调用表</li>
+<li>从中断向量表 0x80 （linux） 进入系统调用表， 再查系统调用表</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>操作系统完成上述 2-4 工作， 第 3 步需要编译器配合</li>
+<li>参数传递过程问题， 常用三种方法（系统调用号也是一个参数）<ol>
+<li>由陷入指令自带参数（不推荐，指令长度有限）</li>
+<li>通过通用寄存器传递参数 （linux 用的比较多）</li>
+<li>在内存中开辟专用堆栈区</li>
+</ol>
+</li>
+</ul>
+<h3 id="系统调用举例"><a href="#系统调用举例" class="headerlink" title="系统调用举例"></a>系统调用举例</h3><ul>
+<li>编译</li>
+<li>CPU 执行到陷入指令<ol>
+<li>中断/异常机制：硬件保护现场， 查中断向量表， 转到系统调用总入口程序</li>
+<li>系统调用总入口程序：保存现场；把参数保存到内核堆栈； 查系统调用表把控制权交给相应系统调用处理例程或内核函数</li>
+<li>执行</li>
+</ol>
+</li>
+<li>linux x86 的系统调用<ol>
+<li>陷入指令 int 128</li>
+<li>门描述符：<ul>
+<li>对 IDT 表第128号门初始化</li>
+<li>门描述符的 2， 3 个字节： 内核代码段选择符</li>
+<li>0，1，6，7字节： 偏移量（system_call（）可执行性代码的第一条指令）</li>
+<li>门类型： 陷阱门</li>
+<li>DPL：3， 与用户级别相同， 允许用户进程使用该门描述符 </li>
+</ul>
+</li>
+</ol>
+</li>
+<li>系统执行 int 0x80<ul>
+<li>由于特选级改变， 要切换栈； 用户栈 -&gt; 内核栈<br><br>CPU 要从任务状态段 TSS 中装入新的栈指针（SS：ESP）</li>
+<li>用户栈信息（SS：ESP）， EFLAGS， 用户态 CS， EIP 压栈</li>
+<li>EFLAG 压栈后复位 TF， IF 保持不变</li>
+<li>用 128 找到门描述符， 找出段选择符装入 CS</li>
+<li>代码段描述符中的基地址 + 陷阱门描述符中的偏移量 → 定位 system_call()的入口地址</li>
 </ul>
 </li>
 </ul>
