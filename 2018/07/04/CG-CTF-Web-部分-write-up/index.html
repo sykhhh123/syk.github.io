@@ -20,16 +20,16 @@
 <meta property="og:site_name" content="未来机械研究所">
 <meta property="og:description" content="签到题打开源码就能看到 flag md5 collisionmd5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/层层递进.png">
-<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/单身一百年也没用.png">
-<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过.png">
-<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过2.png">
-<meta property="og:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过3.png">
+<meta property="og:image" content="https://sykhhh123.github.io/CG-CTF-Web-部分-write-up/层层递进.png">
+<meta property="og:image" content="https://sykhhh123.github.io/CG-CTF-Web-部分-write-up/单身一百年也没用.png">
+<meta property="og:image" content="https://sykhhh123.github.io/CG-CTF-Web-部分-write-up/上传绕过.png">
+<meta property="og:image" content="https://sykhhh123.github.io/CG-CTF-Web-部分-write-up/上传绕过2.png">
+<meta property="og:image" content="https://sykhhh123.github.io/CG-CTF-Web-部分-write-up/上传绕过3.png">
 <meta property="og:updated_time" content="2018-09-21T09:08:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CG-CTF Web 部分 write up">
 <meta name="twitter:description" content="签到题打开源码就能看到 flag md5 collisionmd5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a">
-<meta name="twitter:image" content="https://sykhhh123.github.io/2018/07/04/CG-CTF-Web-部分-write-up/层层递进.png">
+<meta name="twitter:image" content="https://sykhhh123.github.io/CG-CTF-Web-部分-write-up/层层递进.png">
 
 
   <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
@@ -182,12 +182,12 @@
 <h1 id="签到2"><a href="#签到2" class="headerlink" title="签到2"></a>签到2</h1><p>打开源码， 要输入 zhimakaimen ，但是输入框限制 maxnlength = 10 改为 11 即可</p>
 <h1 id="这题不是WEB"><a href="#这题不是WEB" class="headerlink" title="这题不是WEB"></a>这题不是WEB</h1><p>上来直接塞了张图片， 用 winhex 打开拉到最后就看到 flag 了</p>
 <h1 id="层层递进"><a href="#层层递进" class="headerlink" title="层层递进"></a>层层递进</h1><p>打开链接， F12 看网络项， 里面有一个奇怪的 404.html， 打开那个html， 查看源代码。</p>
-<p><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/层层递进.png" alt="test"> <br></p>
+<p><br> <img src="/CG-CTF-Web-部分-write-up/层层递进.png" alt="test"> <br></p>
 <p>将 jquery- 后面的字符连起来就是 flag</p>
 <h1 id="AAencode"><a href="#AAencode" class="headerlink" title="AAencode"></a>AAencode</h1><p>AAencode 是一种把代码变成颜文字的加密， 结合题目意思此处应该是一段 javascipt 代码， 直接粘贴到浏览器控制台中运行即可得到结果</p>
 <p>注： 如果未能正确显示颜文字需要修改浏览器编码</p>
 <h1 id="单身二十年"><a href="#单身二十年" class="headerlink" title="单身二十年"></a>单身二十年</h1><p>点进去有个链接， 跳了一下就说 key 没在这， 用 burp 抓包发现一共发了三个请求。</p>
-<p><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/单身一百年也没用.png" alt="test">  <br></p>
+<p><br> <img src="/CG-CTF-Web-部分-write-up/单身一百年也没用.png" alt="test">  <br></p>
 <p>看一下 serach_key.php 的 Response 找到 flag</p>
 <h1 id="单身一百年也没用"><a href="#单身一百年也没用" class="headerlink" title="单身一百年也没用"></a>单身一百年也没用</h1><p>抓包发现跳到 web9/index.php 有个 302， 打开 Response 就看到 flag 了</p>
 <h1 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h1><p>发现 URL 中有经典文件包含漏洞， 利用 php://filter 输出页面， 打开 php://filter/read=conver.base64-encode/resource=show.php 发现里面没有什么内容， 再打开 index.php 发现 flag</p>
@@ -198,10 +198,10 @@
 <h1 id="x00"><a href="#x00" class="headerlink" title="/x00"></a>/x00</h1><p>利用 ereg 在遇到 %00 时会默认为字符串结束， 构造字符串 1%00%23biubiubiu<br><br>此外 好像可以利用 === 和 ！== 的严格比较， 将 nctf 设置为数组， 这样在 ereg 比较时返回的并不是 false， 下面 strpos 的返回值也不是 false 由此获取 flag</p>
 <h1 id="bypass-again"><a href="#bypass-again" class="headerlink" title="bypass again"></a>bypass again</h1><p>还是利用 md5 0e 开头字符串在比较时会被转换成科学计数法法视为 0<br>也可以利用 md5 无法处理数组 构造两个数组（这才是考点？）</p>
 <h1 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h1><p>extract 能把数组中的符号表导入当前符号表， 这样只要把 thepassword_123 覆盖成和 pass 一样的值</p>
-<h1 id="上传绕过"><a href="#上传绕过" class="headerlink" title="上传绕过"></a>上传绕过</h1><p>这题比较麻烦。<br>普通的截断后缀好像并不好使。<br><br>先上传个 jpg 得到以下信息<br><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过.png" alt="test"> <br></p>
-<p>储存地址分为 dirname， basename， extenion 来检验<br><br>看一下发上去的包。<br><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过2.png" alt="test"> <br></p>
+<h1 id="上传绕过"><a href="#上传绕过" class="headerlink" title="上传绕过"></a>上传绕过</h1><p>这题比较麻烦。<br>普通的截断后缀好像并不好使。<br><br>先上传个 jpg 得到以下信息<br><br> <img src="/CG-CTF-Web-部分-write-up/上传绕过.png" alt="test"> <br></p>
+<p>储存地址分为 dirname， basename， extenion 来检验<br><br>看一下发上去的包。<br><br> <img src="/CG-CTF-Web-部分-write-up/上传绕过2.png" alt="test"> <br></p>
 <p>看样子 /upload/ 就是 dirname 部分， 在 /upload/ 后面添加 1.php 得到如下结果</p>
-<p><br> <img src="/2018/07/04/CG-CTF-Web-部分-write-up/上传绕过3.png" alt="test"> <br><br>可以发现 basename 变了， 那么尝试在 /upload/1.php 后添加 %00 进行截断 得到 flag</p>
+<p><br> <img src="/CG-CTF-Web-部分-write-up/上传绕过3.png" alt="test"> <br><br>可以发现 basename 变了， 那么尝试在 /upload/1.php 后添加 %00 进行截断 得到 flag</p>
 <h1 id="SQL注入1"><a href="#SQL注入1" class="headerlink" title="SQL注入1"></a>SQL注入1</h1><p>打开源码看一下， pass 被 md5 加密了但是 user 是直接使用的， 因此利用 user 注入， 注意闭合单引号和括号即可</p>
 <h1 id="pass-check"><a href="#pass-check" class="headerlink" title="pass check"></a>pass check</h1><p>感觉是个弱类型比较， 直接 post 一个数组就可以了。</p>
 <h1 id="起名字真难"><a href="#起名字真难" class="headerlink" title="起名字真难"></a>起名字真难</h1><p>要求给出字符串不能包含 1~9（不是 0~9） 而且字符串与 54975581388 相等， trick 的地方在于 54975581388 的十六进制 为 0xccccccccc 而 0 也是可以被接受的字符。 </p>

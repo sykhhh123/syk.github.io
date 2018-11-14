@@ -93,14 +93,14 @@
             
               <li class="tag-list-container">
                 <a href="javascript:;">标签</a>
-                <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a><span class="tag-list-count">1</span></li></ul>
+                <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a><span class="tag-list-count">1</span></li></ul>
               </li>
             
           
             
               <li class="archive-list-container">
                 <a href="javascript:;">归档</a>
-                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">9</span></li></ul>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">10</span></li></ul>
               </li>
             
           
@@ -186,10 +186,10 @@
       </div>
       <div class="article-entry">
         
-          <h1 id="漏洞发现"><a href="#漏洞发现" class="headerlink" title="漏洞发现"></a>漏洞发现</h1><p>由腾讯玄武实验室发现支付宝存在该漏洞</p>
-<h1 id="漏洞特征"><a href="#漏洞特征" class="headerlink" title="漏洞特征"></a>漏洞特征</h1><p><img src="/2018/07/17/应用克隆漏洞/特征.png" alt="test"></p>
-<h1 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h1><p><img src="/2018/07/17/应用克隆漏洞/攻击流程.png" alt="test"></p>
-<h1 id="漏洞攻击原理"><a href="#漏洞攻击原理" class="headerlink" title="漏洞攻击原理"></a>漏洞攻击原理</h1><ul>
+          <h1 id="漏洞发现">漏洞发现</h1><p>由腾讯玄武实验室发现支付宝存在该漏洞</p>
+<h1 id="漏洞特征">漏洞特征</h1><p><img src="/应用克隆漏洞/特征.png" alt="test"></p>
+<h1 id="攻击流程">攻击流程</h1><p><img src="/应用克隆漏洞/攻击流程.png" alt="test"></p>
+<h1 id="漏洞攻击原理">漏洞攻击原理</h1><ul>
 <li><p>该漏洞主要利用了Android系统WebView控件的同源策略漏洞来进行攻击，Android应用内部分可导出的Activity组件中，WebView允许通过file url对http域进行访问，并且并未对file域的路径进行严格校验所导致的。</p>
 </li>
 <li><p>该漏洞会打破Android应用的沙箱隔离机制，即A应用可以通过B应用导出的Activity让B应用加载一个恶意file协议的url，从而获取B应用的内部私有文件。</p>
@@ -201,7 +201,7 @@
 </ol>
 </li>
 </ul>
-<h1 id="漏洞的初步修复建议"><a href="#漏洞的初步修复建议" class="headerlink" title="漏洞的初步修复建议"></a>漏洞的初步修复建议</h1><ul>
+<h1 id="漏洞的初步修复建议">漏洞的初步修复建议</h1><ul>
 <li><p>file域访问为非功能需求时，手动在Activity中配置setAllowFileAccessFromFileURLs或setAllowUniversalAccessFromFileURLs两个API为false。（Android4.1版本之前这两个API默认是true，需要显式设置为false）</p>
 </li>
 <li><p>若需要开启file域访问，则设置file路径的白名单，严格控制file域的访问范围，具体如下： </p>
@@ -216,7 +216,7 @@
 <li><p>建议进一步对APP目录下的敏感数据进行保护。客户端APP应用设备相关信息（如IMEI、IMSI、Android_id等）作为密钥对敏感数据进行加密。使攻击者难以利用相关漏洞获得敏感信息。</p>
 </li>
 </ul>
-<h1 id="简单复现及处理"><a href="#简单复现及处理" class="headerlink" title="简单复现及处理"></a>简单复现及处理</h1><ul>
+<h1 id="简单复现及处理">简单复现及处理</h1><ul>
 <li><p>将一下内容保存为html文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">    &lt;title&gt;webview&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;&lt;/style&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        &lt;!--alert(&quot;1&quot;);--&gt;</span><br><span class="line">        function loadData()&#123;</span><br><span class="line">            var arm=&quot;file:///mnt/sdcard/abc.txt&quot;;</span><br><span class="line">            var xmlhttp;</span><br><span class="line">            if (window.XMLHttpRequest) &#123;</span><br><span class="line">                xmlhttp = new XMLHttpRequest();</span><br><span class="line">            &#125;</span><br><span class="line">            xmlhttp.onreadystatechange = function()&#123;</span><br><span class="line"></span><br><span class="line">                if (xmlhttp.readyState == 4) &#123;</span><br><span class="line">                    alert(&quot;3&quot;);</span><br><span class="line">                    alert(xmlhttp.responseText);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            xmlhttp.open(&quot;GET&quot;,arm);</span><br><span class="line">            xmlhttp.send(null);</span><br><span class="line">        &#125;</span><br><span class="line">        &lt;!--alert(&quot;2&quot;);--&gt;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;input type=&quot;button&quot; name=&quot;btn&quot; value=&quot;触发漏洞&quot; onclick=&quot;loadData()&quot; /&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
 </li>
@@ -231,11 +231,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public void onLoadResource(WebView view, String url) &#123;</span><br><span class="line">        super.onLoadResource(view, url);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h1 id="漏洞的危害"><a href="#漏洞的危害" class="headerlink" title="漏洞的危害"></a>漏洞的危害</h1><p>在备份旧手机应用数据，恢复到新手机的过程中。</p><p>认出来我换设备的APP有且只有一款：</p><p>Lastpass–密码安全应用，果然是专业的，克隆后启动，显示设备被禁用。给我发了提醒邮件，让我确认新设备登录。</p><p><br></p><p>其他支付宝，微博，微信，QQ，工行，建行，招行等的客户端，百度安全中心，YY安全中心，QQ安全中心，google身份验证器等一票涉及金融，涉及密保的APP都没发现，他们在新设备里运行。</p><p>支付宝，微博，微信，QQ，工行，建行，招行–这些还好一点，毕竟关闭小额免密后还只是个人信息的泄露。</p><p><br></p><p>这里对我认为危害最大的是谷歌的原生应用，也是最核心安全应用——–(google)身份验证器，和各种XX安全中心，还有微信</p><p>百度安全中心，YY安全中心，QQ安全中心虽然也可以实现克隆动态令牌，但是我可以在这些APP里给他们设置启动密码，克隆出来的APP也需要输入密码才能进去。而(google)身份验证器、微信是无法设置启动密码的。他就不支持设置启动密码。</p><p><br></p><p>身份验证器是google的密保，是lastpass的密保，是teamviewer的密保，是博客后台的密保，是VPS的密保。Gmail邮箱是很多账号的密保邮箱。</p><p>而现在很多应用也在使用微信验证码。</p><p>这意味着，如果身份验证器、微信被克隆。整个账号安全防御体系都可能整体崩溃。</p>
+<h1 id="漏洞的危害">漏洞的危害</h1><p>在备份旧手机应用数据，恢复到新手机的过程中。</p><p>认出来我换设备的APP有且只有一款：</p><p>Lastpass–密码安全应用，果然是专业的，克隆后启动，显示设备被禁用。给我发了提醒邮件，让我确认新设备登录。</p><p><br></p><p>其他支付宝，微博，微信，QQ，工行，建行，招行等的客户端，百度安全中心，YY安全中心，QQ安全中心，google身份验证器等一票涉及金融，涉及密保的APP都没发现，他们在新设备里运行。</p><p>支付宝，微博，微信，QQ，工行，建行，招行–这些还好一点，毕竟关闭小额免密后还只是个人信息的泄露。</p><p><br></p><p>这里对我认为危害最大的是谷歌的原生应用，也是最核心安全应用——–(google)身份验证器，和各种XX安全中心，还有微信</p><p>百度安全中心，YY安全中心，QQ安全中心虽然也可以实现克隆动态令牌，但是我可以在这些APP里给他们设置启动密码，克隆出来的APP也需要输入密码才能进去。而(google)身份验证器、微信是无法设置启动密码的。他就不支持设置启动密码。</p><p><br></p><p>身份验证器是google的密保，是lastpass的密保，是teamviewer的密保，是博客后台的密保，是VPS的密保。Gmail邮箱是很多账号的密保邮箱。</p><p>而现在很多应用也在使用微信验证码。</p><p>这意味着，如果身份验证器、微信被克隆。整个账号安全防御体系都可能整体崩溃。</p>
 
 <p><strong>转自知乎 Happy Ennding 的回答</strong></p>
-<h1 id="更详细的漏洞复现"><a href="#更详细的漏洞复现" class="headerlink" title="更详细的漏洞复现"></a>更详细的漏洞复现</h1><p><a href="https://www.cnblogs.com/goodhacker/p/8748681.html" target="_blank" rel="noopener">https://www.cnblogs.com/goodhacker/p/8748681.html</a></p>
-<h1 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法"></a>检测方法</h1><p>暂时没有查询到任何自动化的检测方法， 百度百科表示该漏洞的检测无法自动化进行必须要人工检测。360提出有自动化检测方法，但网上没有任何自动化检测的方法以及方向</p>
+<h1 id="更详细的漏洞复现">更详细的漏洞复现</h1><p><a href="https://www.cnblogs.com/goodhacker/p/8748681.html" target="_blank" rel="noopener">https://www.cnblogs.com/goodhacker/p/8748681.html</a></p>
+<h1 id="检测方法">检测方法</h1><p>暂时没有查询到任何自动化的检测方法， 百度百科表示该漏洞的检测无法自动化进行必须要人工检测。360提出有自动化检测方法，但网上没有任何自动化检测的方法以及方向</p>
 
         
       </div>
@@ -250,7 +250,7 @@
 
     <div class="post-list-item article">
       <h3 class="article-header">
-        <a href="/2018/07/11/CTF-Web-萌新的小笔记/" >
+        <a href="/2018/07/11/CTF萌新的小笔记/" >
   CTF Web 萌新的小笔记
 </a>
 
@@ -258,7 +258,7 @@
       
 
       <div class="article-info">
-        <a href="/2018/07/11/CTF-Web-萌新的小笔记/"><span class="article-date">
+        <a href="/2018/07/11/CTF萌新的小笔记/"><span class="article-date">
   2018-07-11
 </span>
 </a>
@@ -273,12 +273,12 @@
       </div>
       <div class="article-entry">
         
-          <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
+          <h1 id="目录">目录</h1><ol>
 <li><a href="#文件上传">文件上传</a></li>
 <li></li>
 </ol>
 <p><a name="文件上传"></a></p>
-<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><ul>
+<h1 id="文件上传">文件上传</h1><ul>
 <li>上传 php 文件并过滤 &lt;?php ?&gt; 标签的时候 可以使用 <script language="PHP"></script> 绕过<br><br>如果只过滤了小写的 php 可以用 strtolower(‘PHP’) 来绕过<br><br>题目出处： 2017 百度杯9月场 Upload</li>
 </ul>
 
@@ -295,7 +295,7 @@
 
     <div class="post-list-item article">
       <h3 class="article-header">
-        <a href="/2018/07/04/CG-CTF-Web-部分-write-up/" >
+        <a href="/2018/07/04/CGCTF部分writeup/" >
   CG-CTF Web 部分 write up
 </a>
 
@@ -303,7 +303,7 @@
       
 
       <div class="article-info">
-        <a href="/2018/07/04/CG-CTF-Web-部分-write-up/"><span class="article-date">
+        <a href="/2018/07/04/CGCTF部分writeup/"><span class="article-date">
   2018-07-04
 </span>
 </a>
@@ -318,10 +318,10 @@
       </div>
       <div class="article-entry">
         
-          <h1 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h1><p>打开源码就能看到 flag</p>
-<h1 id="md5-collision"><a href="#md5-collision" class="headerlink" title="md5 collision"></a>md5 collision</h1><p>md5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a</p>
+          <h1 id="签到题">签到题</h1><p>打开源码就能看到 flag</p>
+<h1 id="md5_collision">md5 collision</h1><p>md5 碰撞， 这里用的是 PHP 对字符串 0exxx 使用科学计数法计算， 将 QNKCDZO 进行 md5 加密，密文为0e830400451993494058024219903391， 只需要再找一个 0e 开头的字符串即可：s878926199a</p>
           <p>
-            <a href="/2018/07/04/CG-CTF-Web-部分-write-up/">
+            <a href="/2018/07/04/CGCTF部分writeup/">
               阅读全文
             </a>
           </p>
