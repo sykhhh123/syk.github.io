@@ -22,7 +22,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://sykhhh123.github.io/操作系统/中断响应示意.png">
 <meta property="og:image" content="https://sykhhh123.github.io/操作系统/中断响应示意图.png">
-<meta property="og:updated_time" content="2018-11-13T05:10:16.301Z">
+<meta property="og:updated_time" content="2018-11-19T08:33:25.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统">
 <meta name="twitter:description" content="第一讲中央处理器(CPU)">
@@ -231,7 +231,7 @@
 </ul>
 </li>
 <li>中断与异常引入的原因<ul>
-<li>中断的引入： 为了支持 CPU 和谁被指间的并行操作</li>
+<li>中断的引入： 为了支持 CPU 和设备间的并行操作</li>
 <li>异常的引入： 表示 CPU 执行指令时本身出现的问题 （算术溢出， 除 0 等）</li>
 </ul>
 </li>
@@ -1236,8 +1236,7 @@
 </ul>
 </li>
 </ul>
-<p>####锁的实现</p>
-<ul>
+<h4 id="锁的实现">锁的实现</h4><ul>
 <li>lock():<ul>
 <li>disable interrupts</li>
 <li>if(value == FREE):<ul>
@@ -1255,8 +1254,7 @@
 <li>硬件解法：忙等待，一直占用CPU等待锁</li>
 <li>用户态解法：主动让出（yield）</li>
 </ul>
-<p>####通信机制</p>
-<ul>
+<h4 id="通信机制">通信机制</h4><ul>
 <li>解决信号量及管程的不足/多处理器情况下原语失效的问题</li>
 <li>基本通信方式：消息传递/共享内存/管道/套接字/远程过程调用（RPC）</li>
 <li><strong>消息传递</strong><ul>
@@ -1283,9 +1281,7 @@
 </li>
 <li><strong>套接字</strong></li>
 </ul>
-<p>#第五讲</p>
-<p>##死锁</p>
-<ul>
+<h1 id="第五讲-1">第五讲</h1><h2 id="死锁">死锁</h2><ul>
 <li>一组进程中，每个进程都无限等待被该组进程中另一进程所占有的资源，因而永远无法得到资源，这种现象被称为进程死锁，这组进程被称为死锁进程</li>
 <li>为什么会出现死锁？资源数量有限/锁和信号量使用错误</li>
 <li>可重用资源：可以被多个进程重复使用</li>
@@ -1300,8 +1296,7 @@
 </ul>
 </li>
 </ul>
-<p>##资源分配图（RAG）</p>
-<ul>
+<h2 id="资源分配图（RAG）">资源分配图（RAG）</h2><ul>
 <li>用有向图描述资源系统和进程的状态</li>
 <li>资源类：用方框表示，进程实例：用方框中的黑圆点表示，进程用圆圈表示</li>
 <li>带方向的箭头表示进程对资源的占有和请求</li>
