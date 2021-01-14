@@ -8,22 +8,21 @@
 
 <title>
   
-    xinu代码阅读
+    归档
   
 </title>
 
-<meta name="description" content="system/main.c 启动 shell 进程   include/process.h 定义了 process table 的结构   system/resched.c resched：重新按优先级安排进程 resched_cntl: 控制是否允许重新安排   system/resume.c resume: 不再挂起指定进程，让它处于 ready 状态   system/suspend.">
+<meta name="description" content="间歇性努力的肥宅">
 <meta name="keywords" content="syk981103">
-<meta property="og:type" content="article">
-<meta property="og:title" content="xinu代码阅读">
-<meta property="og:url" content="https://sykhhh123.github.io/2018/10/06/xinu代码阅读/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="未来机械研究所">
+<meta property="og:url" content="https://sykhhh123.github.io/archives/page/2/index.html">
 <meta property="og:site_name" content="未来机械研究所">
-<meta property="og:description" content="system/main.c 启动 shell 进程   include/process.h 定义了 process table 的结构   system/resched.c resched：重新按优先级安排进程 resched_cntl: 控制是否允许重新安排   system/resume.c resume: 不再挂起指定进程，让它处于 ready 状态   system/suspend.">
+<meta property="og:description" content="间歇性努力的肥宅">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-08T07:19:41.825Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xinu代码阅读">
-<meta name="twitter:description" content="system/main.c 启动 shell 进程   include/process.h 定义了 process table 的结构   system/resched.c resched：重新按优先级安排进程 resched_cntl: 控制是否允许重新安排   system/resume.c resume: 不再挂起指定进程，让它处于 ready 状态   system/suspend.">
+<meta name="twitter:title" content="未来机械研究所">
+<meta name="twitter:description" content="间歇性努力的肥宅">
 
 
   <link rel="alternative" href="/atom.xml" title="未来机械研究所" type="application/atom+xml">
@@ -147,115 +146,94 @@
       
         <div style="max-width: 1000px">
       
-          <article id="post-xinu代码阅读" class="article article-type-post">
+          
+
   
-    <h1 class="article-header">
-      xinu代码阅读
-    </h1>
   
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <h1><a href="/archives/2018" class="archive-year">2018</a></h1>
+        </div>
+        <div class="post-list">
+    
   
 
-  <div class="article-info">
-    <span class="article-date">
-  2018-10-06
+    <div class="post-list-item article">
+      <h3 class="article-header">
+        <a href="/2018/06/14/计组复习笔记/" >
+  计组复(yu)习笔记
+</a>
+
+      </h3>
+      
+
+      <div class="article-info">
+        <a href="/2018/06/14/计组复习笔记/"><span class="article-date">
+  2018-06-14
 </span>
-
-    
-
-    
-
-  </div>
-  <div class="article-entry">
-    <a id="more"></a> 
-<ul>
-<li>system/main.c<ul>
-<li>启动 shell 进程</li>
-</ul>
-</li>
-<li>include/process.h<ul>
-<li>定义了 process table 的结构</li>
-</ul>
-</li>
-<li>system/resched.c<ul>
-<li>resched：重新按优先级安排进程</li>
-<li>resched_cntl: 控制是否允许重新安排</li>
-</ul>
-</li>
-<li>system/resume.c<ul>
-<li>resume: 不再挂起指定进程，让它处于 ready 状态</li>
-</ul>
-</li>
-<li>system/suspend.c</li>
-<li>system/kill.c    </li>
-<li>system/xdone.c<ul>
-<li>提示所有用户进程结束后 halt</li>
-</ul>
-</li>
-<li>system/create.c<ul>
-<li>初始状态 PR_SUSP</li>
-</ul>
-</li>
-<li>system/userret.c<ul>
-<li>强制结束当前进程</li>
-</ul>
-</li>
-<li>system/chprio.c <ul>
-<li>改变进程优先级</li>
-</ul>
-</li>
-<li>system/wait.c</li>
-<li>system/signal.c<ul>
-<li>释放一个等待队列中的进程？</li>
-</ul>
-</li>
-<li>system/semcreate</li>
-<li>system/semdelete  </li>
-<li>system/semreset</li>
-<li>system/send<ul>
-<li>发送消息并 ready 一个进程 </li>
-</ul>
-</li>
-<li><p>system/recvclr.c</p>
-<ul>
-<li>如果有消息则返回消息， 没有则返回ok, 然后清空消息 </li>
-</ul>
-</li>
-<li><p>要添加系统调用 </p>
-<ul>
-<li>在 system 中创建函数</li>
-<li>在 include/xinu.h 中 include 进来</li>
-<li>在 shell 中创建 xsh_xxxx.c</li>
-<li>在 shell.c 的 cmdtab 中加入</li>
-<li>在 Makefile 中加入对应文件编译</li>
-</ul>
-</li>
-</ul>
-
-  </div>
-  <footer class="article-footer">
-    
-  <div class="cc">
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.z" target="_blank" title="署名-相同方式共享">
-      <img src="/images/cc/cc.png">
-      
-          <img src="/images/cc/by.png">
+</a>
         
-          <img src="/images/cc/sa.png">
-      
-      <span>
-        本作品采用知识共享 署名-相同方式共享 4.0 国际许可协议进行许可。
-      </span>
-    </a>
+
+        
+	<span class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习/">学习</a></li></ul>
+	</span>
+
+
+      </div>
+      <div class="article-entry">
+        
+          <h1 id="第二讲-计算机的基本结构">第二讲-计算机的基本结构</h1><h2 id="0x01_冯·诺依曼结构的要点">0x01 冯·诺依曼结构的要点</h2><ul>
+<li><p>五个组成部分：运算器<strong>(CA)</strong>，控制器<strong>(CC)</strong>，储存器<strong>(M)</strong>，输入设备<strong>（I）</strong>，输出设备<strong>(O)</strong></p>
+</li>
+<li><p>plus:外部储存设备<strong>(R)</strong> example:bios芯片</p>
+</li>
+</ul>
+<h2 id="0x02_x86指令系统概览">0x02 x86指令系统概览</h2><ul>
+<li><p>Intel 8086（1978）</p>
+<ul>
+<li>16位通用寄存器</li>
+<li>对外16根数据线，20 根地址线，内存空间1MB</li>
+<li>物理地址采用<strong>段+偏移</strong>的形式</li>
+</ul>
+</li>
+<li><p>Intel 80286（1982）</p>
+<ul>
+<li>地址总线 24 位，内存 16 MB</li>
+<li>引入<strong>保护模式</strong></li>
+<li>兼容8060，有<strong>实模式</strong></li>
+</ul>
+</li>
+<li><p>实模式（实地址模式）</p>
+<ul>
+<li>运行在实模式下的 80x86 微处理器像是一个更快的 8086</li>
+<li>所有x86处理器在加电或复位后<strong>首先进入实模式</strong></li>
+<li>系统初始化程序在实模式下运行，为进入保护模式做好准备</li>
+</ul>
+</li>
+<li>Intel 80386（第一款32位处理器）</li>
+<li>三种模式的转换<br><img src="/2018/06/14/计组复习笔记/三种工作模式之间的转换.png" alt="test"></li>
+</ul>
+<p><br></p>
+          <p>
+            <a href="/2018/06/14/计组复习笔记/">
+              阅读全文
+            </a>
+          </p>
+        
+      </div>
+    </div>
+
+  
+
+
+
+  <div class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/">上一页</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
   </div>
-
-
-    
-
-  </footer>
-</article>
-
-
-
 
 
 
